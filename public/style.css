@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  background: #000; 
+  color: #000;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 15pt;
+  letter-spacing: -0.025em;
+  line-height: 1.75em;
+}
+
+
+body {
+  background: #fff;
+  overflow: hidden;
+}
+
+
+video { 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: -100;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  background-size: cover;
+  -webkit-transition: 1s opacity;
+  transition: 1s opacity;
+  opacity: 0.5;
+}
+
+
+.stopfade { 
+ opacity: .5;
+}
+
+
+@keyframes header {
+  0% {
+    -moz-transform: translate3d(0,1em,0);
+    -webkit-transform: translate3d(0,1em,0);
+    -ms-transform: translate3d(0,1em,0);
+    transform: translate3d(0,1em,0);
+    opacity: 0;
+  }
+
+  100% {
+    -moz-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    opacity: 1;
+  }
+}
+
+#header {
+  -webkit-animation: header 1s 1s forwards;
+  animation: header 1s 1s forwards;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  opacity: 0;
+  text-align: center;
+}
+
+#header {
+  margin-top: 10%;
+}
+
+#header h1 {
+  font-size: 4.35em;
+  font-weight: 900;
+  margin: 0 0 0.3em 0;
+  line-height: 1em;
+
+}
+
+#header p {
+  font-size: 1.25em;
+  margin: 0.75em 0 1em 0;
+  opacity: 0.75;
+}
