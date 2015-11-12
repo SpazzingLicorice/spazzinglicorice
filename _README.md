@@ -1,12 +1,14 @@
 # Project Name
+That-really-sweet-whiteboarding-thing-that-everyone-is-going-to-want-to-use
 
 > Pithy project description
+It's gonna be really sweet.
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Clayton
+  - __Scrum Master__: Stephen
+  - __Development Team Members__: Mitchell, Michelle
 
 ## Table of Contents
 
@@ -20,15 +22,15 @@
 
 ## Usage
 
-> Some usage instructions
+> Simple-to-use, responsive, and live multiplayer whiteboard app. Play pictionary with your friends, or conduct a grueling 2-hour algorithm interview. The choice is yours.
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node <version>
+- Express <version>
+- Angular <version>
+- Mongo <version>
+- Mongoose <version>
 
 ## Development
 
