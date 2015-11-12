@@ -1,102 +1,182 @@
-var socket = io();
+(function() {
 
-socket.on('join', function(board) {
-  console.log(board);
-});
+  var CANVAS_WIDTH = window.innerWidth;
+  var CANVAS_HEIGHT = window.innerHeight;
 
-//===========global variables===========
-var CANVAS_WIDTH = 800;
-var CANVAS_HEIGHT = 800;
-//===========canvas init===========
+  var App = {};
+
+  // Initialize the App
+  App.init = function() {
+    App.socket = io();
+
+    // Getting properties of the whiteboard
+    App.canvas = $('#whiteboard');
+    App.canvas.width = CANVAS_WIDTH;
+    App.canvas.height = CANVAS_HEIGHT;
+    App.context = App.canvas[0].getContext("2d");
+
+    // Properties of the mouse click
+    App.mouse = {
+      click: false,
+      drag: false,
+      x: 0,
+      y: 0
+    };
+
+    // Initalizing of the pen - to be customized later
+    App.pen = {
+      fillStyle: 'solid',
+      strokeStyle: "white",
+      lineWidth: 5,
+      lineCap: 'round'
+    };
+
+    App.stroke = [];
+
+    // Draws the board upon join
+    App.socket.on('join', function(board) {
+      console.log("Joining the board");
+      console.log(board);
+    });
+
+    // Upon listening to 'drag' event, receives data from the server and draws it to the whiteboard
+    App.socket.on('drag', function(data) {
+      console.log("Receiving data:", data);
+      App.draw(data.coords);
+        // receive pay load ddata
+        // render canvas payload obj (fillStyle, strokeStyle, lineWidth, lineCap, coords)
+        // drag event: get property of each strok + x + y
+        // start: just get App.pen info
+        // drag: array of arrays (coords)
+    });
+
+    // Draws according to coordinates
+    // TODO: Need to pass in App.pen properties as parameters
+    App.draw = function(x, y) {
+      App.context.lineTo(x, y);
+      App.context.stroke();
+    };
+
+  };
+
+  $(function() {
+    // Initialize the app
+    App.init();
+
+    //////////////// Mouse Events
 
 
-var canvas = $('#whiteboard');
-canvas.width = CANVAS_WIDTH;
-canvas.height = CANVAS_HEIGHT;
+    // Upon mousedown event detection: 
+    App.canvas.on('mousedown', function(e) {
+      console.log("Mousedown event detected");
 
-// if (typeof G_vmlCanvasManager != 'undefined') {
-//   canvas = G_vmlCanvasManager.initElement(canvas);
-context = canvas[0].getContext("2d");
+      // Initialize mouse position
+      App.mouse.click = true;
+      App.mouse.x = e.pageX - this.offsetLeft;
+      App.mouse.y = e.pageY - this.offsetTop;
 
-var mouse = {
-  click: false,
-  drag: false,
-  x: 0, 
-  y: 0  
-};
+      // Initialize canvas render with current pen style
+      for (var key in App.pen) {
+        App.context[key] = App.pen[key];
+      }
 
-var pen = {
-  fillStyle: 'solid',
-  strokeStyle: "black",
-  lineWidth: 5,
-  lineCap: 'round'
-};
+      // Push mouse coordinates to App.stroke
+      App.stroke.push([App.mouse.x, App.mouse.y]);
 
-//=========== socket init functions here=====================
+      // Emit the App.pen object
+      App.socket.emit('start', App.pen);
 
-
-//=========== init window/window resize functions here===========
-// var paint = false;
+      // Begin draw
+      App.context.beginPath();
+      App.context.moveTo(App.mouse.x, App.mouse.y);
+    });
 
 
+    // Mousedrag event
+    App.canvas.on('drag', function(e) {
+      App.mouse.drag = true;
 
-//=========== mouse events============================
-var stroke = [];
-var draw = function(x, y) {
-  context.lineTo(x, y);
-  context.stroke();
-}
-//Mousedown
-canvas.on('mousedown', function(e) {
-//initialize mouse position
-  mouse.click = true;
-  mouse.x = e.pageX - this.offsetLeft;
-  mouse.y = e.pageY - this.offsetTop;
-  //initialize canvas render with current pen style
-  for (key in pen) {
-    context[key] = pen[key];
-  }
+      // Find x,y coordinates of dragging
+      var x = e.offsetX;
+      var y = e.offsetY;
 
-  stroke.push([mouse.x, mouse.y]);
+      // var offset = $(this).offset();
+      // var x = e.pageX - offset.left;
+      // var y = e.pageY - offset.top;
+      App.draw(x, y);
+      App.stroke.push([x, y]);
+      console.log("Currently drawing coordiantes", [x, y]);
 
-  // emit the pen object
-  socket.emit('start', pen);
+      // Emit x, y in array
+      App.socket.emit('drag', [x, y]);
 
-  //begin draw
-  context.beginPath();
-  context.moveTo(mouse.x, mouse.y);
-});
+    });
 
-//drag
-canvas.on('drag', function(e) {
-    mouse.drag = true;
-    var offset = $(this).offset();
-    var x = e.pageX - offset.left;
-    var y = e.pageY - offset.top;
-    draw(x, y);
-    stroke.push([x, y]);
-    console.log([x, y]);
-    
-    //emit x, y in array
-    socket.emit('drag', [x, y]);
+    // Mouse dragend event
+    App.canvas.on('dragend', function(e) {
+      App.mouse.drag = false;
+      App.mouse.click = false;
 
-});
+      // Sample of resulting data to be pushed to db
+      console.log("Data being pushed to the server", [App.stroke, App.pen]);
 
-canvas.on('dragend', function(e) {
-    mouse.drag = false;
-    mouse.click = false;
+      // Empty App.stroke
+      App.stroke = [];
 
- //sample of resulting data to be pushed to db
-    console.log([stroke, pen]);
-    stroke = [];
+      // Tell socket that we've finished sending data
+      App.socket.emit('end', null);
+    });
 
- //socket end
-  socket.emit('end', null);
-});
+    // Do we need this?
+    App.canvas.onmouseout = function() {
+      App.mouse.click = false;
+      App.context.closePath();
+    };
 
-//do we need this?
-canvas.onmouseout = function() {
-  mouse.click = false;
-  context.closePath();
-}
 
+
+    //===========global variables===========
+    // var CANVAS_WIDTH = 800;
+    // var CANVAS_HEIGHT = 800;
+    // function resizeCanvas() {
+    //    canvas.width = width = window.innerWidth;
+    //    canvas.height = height = window.innerHeight;
+    // }
+
+
+
+    //===========canvas init===========
+
+    // if (typeof G_vmlCanvasManager != 'undefined') {
+    //   canvas = G_vmlCanvasManager.initElement(canvas);
+
+
+    // context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+
+    // window.onresize = (function() {
+    //   // var timeout;
+    //   return function() {
+    //     // clearTimeout(timeout);
+    //     // resizeCanvas();
+    //     // timeout = setTimeout(function() {
+    //     //    redraw();
+    //     // }, 100);
+    // console.log("Before", canvas.width, canvas.height);
+    //     context.canvas.width = window.innerWidth;
+    //     context.canvas.height = window.innerHeight;
+    //     console.log("After", context.canvas.width, context.canvas.height);
+
+    //   }
+    // })();
+
+
+
+    //=========== App.socket init functions here=====================
+
+
+    //=========== init window/window resize functions here===========
+    // var paint = false;
+
+  });
+
+}).call(this);
