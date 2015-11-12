@@ -3,10 +3,19 @@ var db = require('./config');
 
 var boardSchema = new mongoose.Schema({
   id: String,
-  lines: Object
+  strokes: Array
 });
 
-var Board = new mongoose.model('board', boardSchema);
+// var strokeSchema = new mongoose.Schema({
+//   fillStyle: String,
+//   strokeStyle: String,
+//   lineWidth: Number,
+//   lineCap: String,
+//   path: Array
+// });
 
-module.exports.schema = boardSchema;
-module.exports.model = Board;
+var Board = new mongoose.model('board', boardSchema);
+// var Stroke = new mongoose.model('stroke', strokeSchema);
+
+module.exports.boardModel = Board;
+// module.exports.strokeModel = Stroke;
