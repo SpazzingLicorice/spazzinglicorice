@@ -26,11 +26,11 @@ It's gonna be really sweet.
 
 ## Requirements
 
-- Node <version>
-- Express <version>
-- Angular <version>
-- Mongo <version>
-- Mongoose <version>
+- Node 0.12.0
+- Express 4.13.3
+- Angular 1.4.7
+- Mongoose 4.2.5
+- Socket.io 1.3.7
 
 ## Development
 
