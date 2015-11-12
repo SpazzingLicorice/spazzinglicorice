@@ -18,27 +18,36 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  Whiteboard.com is a realtime collaborative whiteboarding tool.
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  Whiteboard.com is better way to conduct remote programming interviews than realtime text editors.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  TBD.
 
 ## Problem ##
   > Describe the problem your product solves.
+  The problem is that most remote code interviewing tools don't take advantage of whiteboarding interview techniques, which is the preferred method of
+  assessing candidates in an in-person setting.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  We solve this problem by creating a realtime whiteboarding solution that can be used from anywhere.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Go to whiteboard.com to start a new whiteboard and hit the share button to share your board with collaborators.
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "I use whiteboard.com to conduct all my coding interviews because I want to learn about a candidate's thought process rather than how quickly they can type code."
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
