@@ -36,18 +36,18 @@ io.on('connection', function(socket) {
 
   //Store pen properties on stroke object
   socket.on('start', function(pen) {
-    socket.stroke = pen;
-    socket.stroke.path = [];
+    socket.stroke = {
+      pen: pen,
+      path: []
+    };
   });
 
   //Push coordinates into stroke's path array
   socket.on('drag', function(coords) {
     socket.stroke.path.push(coords);
+
     var payload = {
-      fillStyle: socket.stroke.fillStyle,
-      strokeStyle: socket.stroke.strokeStyle,
-      lineWidth: socket.stroke.lineWidth,
-      lineCap: socket.stroke.lineCap,
+      pen: socket.stroke.pen,
       coords: coords
     };
 
@@ -71,9 +71,9 @@ io.on('connection', function(socket) {
     delete socket.stroke;
 
     /**************TEST IF THE PROPERTIES WERE SAVED**********/
-    // Board.boardModel.findOne({id: id}, function(err, doc) {
-    //   console.log(doc.strokes);
-    // });
+    Board.boardModel.findOne({id: id}, function(err, doc) {
+      console.log(doc.strokes);
+    });
   });
 });
 
