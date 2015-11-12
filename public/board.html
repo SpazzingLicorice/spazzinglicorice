@@ -1,12 +1,33 @@
- <!DOCTYPE html>
- 
- <html>
- <div class='whiteboard'>
-    <canvas id='whiteboard' height='800' width='800' style='background-color:gray'></canvas>
+<!DOCTYPE html>
+<html>
+ <head>
+  <link rel='stylesheet' href='css/boardstyle.css'>
+ </head>
+<body>
+  
+  <div class='whiteboard container'>
+    <div class='toolbar'>
+        <div class='btn-erase'></div>
+        <div class='pens'>
+          <div class='palette'>
+            <input type="checkbox" value="None" id="black" name="check" />
+            <label for="black"></label>
+          </div>
+      </div>
+        <button class='btn-tool btn-undo'>Undo</button>
+    </div> 
+    <!-- render this in ng-view probably -->
+    <div class='board-frame'>
+      <canvas id='whiteboard' width='830px' height='590px'>
+      </canvas>
+    </div>
+  </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.min.js"></script>
+</body>
+
 <script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
 <script src="lib/jquery.event.drag-2.2.js"></script>
-<script src='js/whiteboard.js'></script>
+<script src='whiteboard.js'></script>
+>>>>>>> (refactor) Adding basic whiteboard styles in css/html.
 </html>
