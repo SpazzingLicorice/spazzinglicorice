@@ -2,7 +2,7 @@
   "name": "spazzinglicorice",
   "version": "0.0.0",
   "description": "Multiplayer Whiteboard",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,5 +25,8 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5"
+  },
+  "engines": {
+    "node": "0.12.0"
   }
 }
