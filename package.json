@@ -1,0 +1,29 @@
+{
+  "name": "spazzinglicorice",
+  "version": "0.0.0",
+  "description": "Multiplayer Whiteboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SpazzingLicorice/spazzinglicorice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SpazzingLicorice/spazzinglicorice/issues"
+  },
+  "homepage": "https://github.com/SpazzingLicorice/spazzinglicorice",
+  "dependencies": {
+    "angular": "^1.4.7",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongoose": "^4.2.5",
+    "socket.io": "^1.3.7"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
