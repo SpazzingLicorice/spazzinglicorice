@@ -14,8 +14,8 @@ var boardSchema = new mongoose.Schema({
 //   path: Array
 // });
 
-var Board = new mongoose.model('board', boardSchema);
-// var Stroke = new mongoose.model('stroke', strokeSchema);
+var Board = mongoose.model('board', boardSchema);
+// var Stroke = mongoose.model('stroke', strokeSchema);
 
 module.exports.boardModel = Board;
 // module.exports.strokeModel = Stroke;

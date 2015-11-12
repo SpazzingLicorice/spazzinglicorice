@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 var Board = require('./db/board');
 var port = process.env.PORT || 8080;
 
-app.use(express.static(__dirname + 'public'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
   console.log(req.url);
