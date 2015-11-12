@@ -7,20 +7,23 @@
   
   <div class='whiteboard container'>
     <div class='toolbar'>
- <!--        <div class='palette'>
-          <input type="checkbox" value="None" id="black" name="check" />
-          <label for="black"></label>
-        </div> -->
-        <!-- <button class='btn-tool'>Erase</button> -->
-        <div class='btn-tool btn-erase'></div>
+        <div class='btn-erase'></div>
+        <div class='pens'>
+          <div class='palette'>
+            <input type="checkbox" value="None" id="black" name="check" />
+            <label for="black"></label>
+          </div>
+      </div>
         <button class='btn-tool btn-undo'>Undo</button>
     </div> 
     <!-- render this in ng-view probably -->
     <div class='board-frame'>
-    <canvas id='whiteboard' width='830px' height='595px'>
-    </canvas>
+      <canvas id='whiteboard' width='830px' height='590px'>
+      </canvas>
+    </div>
   </div>
-  </div>
+</div>
+
 </body>
 
 <script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>

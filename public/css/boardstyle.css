@@ -1,9 +1,16 @@
+body {
+  background-color: black;
+  position: relative;
+}
+
 
 .whiteboard.container { 
+  /*position: relative;*/
+  left: 30px;
   margin: 10px;
   padding: 10px;
   width: 70%;
-  background-color: dimgray;
+  background-color: #202020;
 }
 
 .toolbar {
@@ -15,11 +22,24 @@
   position: relative;
 }
 
-
-canvas {
-  /*background-color: white;*/
+.board-frame {
+   background-image: url('../images/Whiteboard_Frame2.jpg');
+   background-size: 908px 680px;
+   padding: 45px 40px;
+   width: 828px;
+   height: 590px;
+   
 }
 
+#whiteboard {
+  /*position: absolute;*/
+  margin: auto;
+  /*top: 40px;*/
+  /*left: 40px;*/
+}
+
+
+/********button styles********/
 
 .btn-undo {
    border-top: 1px solid #b3b3b3;
@@ -54,6 +74,8 @@ canvas {
   background-size: 150px 75px;
 }
 
+
+
 .btn-tool:hover {
    border-top-color: #94a8b5;
    background: #94a8b5;
@@ -81,21 +103,14 @@ canvas {
   right: 50px;
 }
 
-.board-frame {
-   background-image: url('../images/Whiteboard_Frame2.jpg');
-   background-size: 908px 680px;
-   /*this makes drawing screwy*/
-   /*position: relative;*/
-   width: 908px;
-   height: 680px;
-   
-}
 
-#whiteboard {
-  background-color: transparent;
+
+.pens {
+  /*display: inline-block;*/
   position: absolute;
-  top: 40px;
-  left: 40px;
+  left: 50%;
+  top: 15px;
+  /*width: 100px;*/
 }
 
 
@@ -106,14 +121,6 @@ canvas {
 
 
 
-
-
-
-
-
-
-
-/*
 
 
 
@@ -209,4 +216,4 @@ input[type=checkbox] {
   filter: alpha(opacity=100);
   background: black;
   opacity: 1;
-}*/
+}
