@@ -1,3 +1,9 @@
+var socket = io();
+
+socket.on('join', function(board) {
+  console.log(board);
+});
+
 //===========global variables===========
 var CANVAS_WIDTH = 800;
 var CANVAS_HEIGHT = 800;
@@ -52,6 +58,10 @@ canvas.on('mousedown', function(e) {
   }
 
   stroke.push([mouse.x, mouse.y]);
+
+  // emit the pen object
+  socket.emit('start', pen);
+
   //begin draw
   context.beginPath();
   context.moveTo(mouse.x, mouse.y);
@@ -65,9 +75,11 @@ canvas.on('drag', function(e) {
     var y = e.pageY - offset.top;
     draw(x, y);
     stroke.push([x, y]);
-
-//emit data
     console.log([x, y]);
+    
+    //emit x, y in array
+    socket.emit('drag', [x, y]);
+
 });
 
 canvas.on('dragend', function(e) {
@@ -77,7 +89,9 @@ canvas.on('dragend', function(e) {
  //sample of resulting data to be pushed to db
     console.log([stroke, pen]);
     stroke = [];
+
  //socket end
+  socket.emit('end', null);
 });
 
 //do we need this?
