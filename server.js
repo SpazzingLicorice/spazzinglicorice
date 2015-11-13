@@ -42,15 +42,15 @@ app.get('/new', function(req, res) {
 
 // Wildcard & board route id handler
 app.get('/*', function(req, res) {
-  var board_id = req.url.slice(1);
-  var query = Board.boardModel.where({_id: board_id});
+  var id = req.url.slice(1);
 
-  //check if it's a valid board
-  query.findOne(function(err, board) {
+  Board.boardModel.findOne({id: id}, function(err, board) {
     //if it is not found send to home page
     if (err) {
       res.redirect('/');
     } else {
+
+      console.log('board: ', board);
       // Start new socket connection with board id for room
       handleSocket(req.url, board, io);
 

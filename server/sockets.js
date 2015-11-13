@@ -6,7 +6,7 @@ var Board = require('../db/board');
 var connect = function(boardUrl, board, io) {
   var whiteboard = io.of(boardUrl);
 
-  whiteboard.on('connection', function(socket) {
+  whiteboard.once('connection', function(socket) {
     //Emit the whole board on join.
     socket.emit('join', board);
 
