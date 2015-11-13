@@ -7,7 +7,8 @@
 
   // Initialize the App
   App.init = function() {
-    App.socket = io();
+    var ioRoom = window.location.href;
+    App.socket = io(ioRoom);
 
     // Getting properties of the whiteboard
     App.canvas = $('#whiteboard');
