@@ -161,49 +161,6 @@
     });
 
 
-
-    //===========global variables===========
-    // var CANVAS_WIDTH = 800;
-    // var CANVAS_HEIGHT = 800;
-    // function resizeCanvas() {
-    //    canvas.width = width = window.innerWidth;
-    //    canvas.height = height = window.innerHeight;
-    // }
-
-
-
-    //===========canvas init===========
-
-    // if (typeof G_vmlCanvasManager != 'undefined') {
-    //   canvas = G_vmlCanvasManager.initElement(canvas);
-
-
-    // context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
-
-    // window.onresize = (function() {
-    //   // var timeout;
-    //   return function() {
-    //     // clearTimeout(timeout);
-    //     // resizeCanvas();
-    //     // timeout = setTimeout(function() {
-    //     //    redraw();
-    //     // }, 100);
-    // console.log("Before", canvas.width, canvas.height);
-    //     context.canvas.width = window.innerWidth;
-    //     context.canvas.height = window.innerHeight;
-    //     console.log("After", context.canvas.width, context.canvas.height);
-
-    //   }
-    // })();
-
-
-
-    //=========== App.socket init functions here=====================
-
-
-    //=========== init window/window resize functions here===========
-    // var paint = false;
-
   });
 
 }).call(this);
