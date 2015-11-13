@@ -4,6 +4,7 @@
   var CANVAS_HEIGHT = window.innerHeight;
 
   var App = {};
+  App.prevPixel = [];
 
   // Initialize the App
   App.init = function() {
@@ -13,6 +14,7 @@
     App.canvas = $('#whiteboard');
     App.canvas.width = CANVAS_WIDTH;
     App.canvas.height = CANVAS_HEIGHT;
+    console.log(App.canvas);
     App.context = App.canvas[0].getContext("2d");
 
     // Properties of the mouse click
@@ -26,7 +28,7 @@
     // Initalizing of the pen - to be customized later
     App.pen = {
       fillStyle: 'solid',
-      strokeStyle: "white",
+      strokeStyle: "black",
       lineWidth: 5,
       lineCap: 'round'
     };
@@ -39,15 +41,50 @@
       console.log(board);
     });
 
+
     // Upon listening to 'drag' event, receives data from the server and draws it to the whiteboard
     App.socket.on('drag', function(data) {
+
       console.log("Receiving data:", data);
-      App.draw(data.coords);
-        // receive pay load ddata
-        // render canvas payload obj (fillStyle, strokeStyle, lineWidth, lineCap, coords)
-        // drag event: get property of each strok + x + y
-        // start: just get App.pen info
-        // drag: array of arrays (coords)
+
+      // Initialize canvas render with current pen style
+      // for (var key in data.pen) {
+      //   App.context[key] = data.pen[key];
+      // }
+
+      // // Push mouse coordinates to App.stroke
+      // App.mouse.click = true;
+      // App.mouse.x = data.coords[0]
+      // App.mouse.y = data.coords[1]
+      // App.stroke.push([App.mouse.x, App.mouse.y]);
+      // App.context.beginPath();
+      // App.context.moveTo(App.mouse.x, App.mouse.y);
+      // App.draw(App.mouse.x, App.mouse.y);
+      // App.stroke.push([App.mouse.x, App.mouse.y]);
+
+      if (App.prevPixel.length === 0) {
+        App.prevPixel = data.coords;
+      }
+
+      App.initializeMouseDown(data.pen, App.prevPixel[0], App.prevPixel[1]);
+      App.draw(data.coords[0], data.coords[1]);
+      App.prevPixel = data.coords;
+
+      // var initializeMouseDown = function() {
+      // App.stroke.push(data.coords[0], data.coords[1])
+      // App.context.beginPath();
+      // App.context.moveTo(App.prevPixel[0], App.prevPixel[1]);
+      // App.context.lineTo(data.coords[0], data.coords[1]);
+      // App.context.stroke();
+      // App.prevPixel = data.coords;
+      // }
+      // initializeMouseDown();
+
+    });
+
+    App.socket.on('end', function() {
+      App.prevPixel = [];
+      App.stroke = [];
     });
 
     // Draws according to coordinates
@@ -57,17 +94,32 @@
       App.context.stroke();
     };
 
+
+    App.initializeMouseDown = function(pen, moveToX, moveToY) {
+      // Initialize canvas render with current pen style
+      for (var key in pen) {
+        App.context[key] = pen[key];
+      }
+
+      // Push mouse coordinates to App.stroke
+      App.stroke.push([moveToX, moveToY]);
+
+      // Begin draw
+      App.context.beginPath();
+      App.context.moveTo(moveToX, moveToY);
+    };
+
   };
 
   $(function() {
     // Initialize the app
     App.init();
 
-    //////////////// Mouse Events
-
+    // Mouse Events
 
     // Upon mousedown event detection: 
     App.canvas.on('mousedown', function(e) {
+      console.log(e);
       console.log("Mousedown event detected");
 
       // Initialize mouse position
@@ -75,20 +127,10 @@
       App.mouse.x = e.pageX - this.offsetLeft;
       App.mouse.y = e.pageY - this.offsetTop;
 
-      // Initialize canvas render with current pen style
-      for (var key in App.pen) {
-        App.context[key] = App.pen[key];
-      }
+      App.initializeMouseDown(App.pen, App.mouse.x, App.mouse.y);
 
-      // Push mouse coordinates to App.stroke
-      App.stroke.push([App.mouse.x, App.mouse.y]);
-
-      // Emit the App.pen object
+      // Emit the pen object
       App.socket.emit('start', App.pen);
-
-      // Begin draw
-      App.context.beginPath();
-      App.context.moveTo(App.mouse.x, App.mouse.y);
     });
 
 
