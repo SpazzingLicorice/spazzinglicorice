@@ -4,7 +4,6 @@
   var CANVAS_HEIGHT = window.innerHeight;
 
   var App = {};
-  App.prevPixel = [];
 
   // Initialize the App
   App.init = function() {
@@ -14,7 +13,6 @@
     App.canvas = $('#whiteboard');
     App.canvas.width = CANVAS_WIDTH;
     App.canvas.height = CANVAS_HEIGHT;
-    console.log(App.canvas);
     App.context = App.canvas[0].getContext("2d");
 
     // Properties of the mouse click
@@ -25,7 +23,7 @@
       y: 0
     };
 
-    // Initalizing of the pen - to be customized later
+    // Initalizing pen properties. Add new drawing features here
     App.pen = {
       fillStyle: 'solid',
       strokeStyle: "black",
@@ -34,99 +32,91 @@
     };
 
     App.stroke = [];
-
-    // Draws the board upon join
-    App.socket.on('join', function(board) {
-      console.log("Joining the board");
-      console.log(board);
-    });
+    App.prevPixel = [];
 
 
-    // Upon listening to 'drag' event, receives data from the server and draws it to the whiteboard
-    App.socket.on('drag', function(data) {
 
-      console.log("Receiving data:", data);
 
-      // Initialize canvas render with current pen style
-      // for (var key in data.pen) {
-      //   App.context[key] = data.pen[key];
-      // }
+    //////////// Methods ///////////////
 
-      // // Push mouse coordinates to App.stroke
-      // App.mouse.click = true;
-      // App.mouse.x = data.coords[0]
-      // App.mouse.y = data.coords[1]
-      // App.stroke.push([App.mouse.x, App.mouse.y]);
-      // App.context.beginPath();
-      // App.context.moveTo(App.mouse.x, App.mouse.y);
-      // App.draw(App.mouse.x, App.mouse.y);
-      // App.stroke.push([App.mouse.x, App.mouse.y]);
-
-      if (App.prevPixel.length === 0) {
-        App.prevPixel = data.coords;
-      }
-
-      App.initializeMouseDown(data.pen, App.prevPixel[0], App.prevPixel[1]);
-      App.draw(data.coords[0], data.coords[1]);
-      App.prevPixel = data.coords;
-
-      // var initializeMouseDown = function() {
-      // App.stroke.push(data.coords[0], data.coords[1])
-      // App.context.beginPath();
-      // App.context.moveTo(App.prevPixel[0], App.prevPixel[1]);
-      // App.context.lineTo(data.coords[0], data.coords[1]);
-      // App.context.stroke();
-      // App.prevPixel = data.coords;
-      // }
-      // initializeMouseDown();
-
-    });
-
-    App.socket.on('end', function() {
-      App.prevPixel = [];
-      App.stroke = [];
-    });
 
     // Draws according to coordinates
-    // TODO: Need to pass in App.pen properties as parameters
     App.draw = function(x, y) {
       App.context.lineTo(x, y);
       App.context.stroke();
     };
 
-
+    // Initialize before drawing 
     App.initializeMouseDown = function(pen, moveToX, moveToY) {
-      // Initialize canvas render with current pen style
+
+      // Copy over current pen properties (e.g. fillStyle)
       for (var key in pen) {
         App.context[key] = pen[key];
       }
-
-      // Push mouse coordinates to App.stroke
-      App.stroke.push([moveToX, moveToY]);
 
       // Begin draw
       App.context.beginPath();
       App.context.moveTo(moveToX, moveToY);
     };
 
+
+
+
+    //////////// Socket events //////////
+
+    // Draws the board upon join
+    App.socket.on('join', function(board) {
+      console.log("Joining the board.");
+    });
+
+
+    // Upon listening to 'drag' event, receives data from the server and draws it to the whiteboard
+    App.socket.on('drag', function(data) {
+
+      console.log("Receiving data from another user:", data);
+
+      // Socket listens and sends 1 pixel at a time, but canvas drawing works with an initial starting point. App.prevPixel is an array of the previous coordinates sent, so drawing is smoothly rendered across different browsers. 
+      // If the App.prevPixel array is empty (i.e., this is the first pixel of the drawn element), then prevPixel is set as the current mouseclick coordinates. 
+      // Therefore, the rendering is not quite identical across different browsers. 
+      if (App.prevPixel.length === 0) {
+        App.prevPixel = data.coords;
+      }
+
+      App.initializeMouseDown(data.pen, App.prevPixel[0], App.prevPixel[1]);
+      App.draw(data.coords[0], data.coords[1]);
+
+      // Set the current coordinates as App.prevPixel, so the next pixel rendered will be smoothly drawn from these coordinate points to the next ones. 
+      App.prevPixel = data.coords;
+
+    });
+
+    // When the user has mouseup (and finished drawing) then App.prevPixel will be emptied.
+    App.socket.on('end', function() {
+      App.prevPixel = [];
+    });
+
   };
+
+
+  ////// Initialize the app ///////
 
   $(function() {
     // Initialize the app
     App.init();
 
-    // Mouse Events
+    //////////// Mouse Events //////////////
 
     // Upon mousedown event detection: 
     App.canvas.on('mousedown', function(e) {
-      console.log(e);
-      console.log("Mousedown event detected");
+      console.log("User has started to draw.");
 
       // Initialize mouse position
       App.mouse.click = true;
       App.mouse.x = e.pageX - this.offsetLeft;
       App.mouse.y = e.pageY - this.offsetTop;
 
+      // Add the first mouse coordinates to stroke array for storage
+      App.stroke.push([App.mouse.x, App.mouse.Y]);
       App.initializeMouseDown(App.pen, App.mouse.x, App.mouse.y);
 
       // Emit the pen object
@@ -142,12 +132,13 @@
       var x = e.offsetX;
       var y = e.offsetY;
 
-      // var offset = $(this).offset();
-      // var x = e.pageX - offset.left;
-      // var y = e.pageY - offset.top;
+      // Render the drawing
       App.draw(x, y);
+
+      console.log("Currently drawing coordinates", [x, y]);
+
+      // Continue to push coordinates to stroke array (as part of storage)
       App.stroke.push([x, y]);
-      console.log("Currently drawing coordiantes", [x, y]);
 
       // Emit x, y in array
       App.socket.emit('drag', [x, y]);
@@ -160,7 +151,7 @@
       App.mouse.click = false;
 
       // Sample of resulting data to be pushed to db
-      console.log("Data being pushed to the server", [App.stroke, App.pen]);
+      console.log("Drawing is finished and its data is being pushed to the server", [App.stroke, App.pen]);
 
       // Empty App.stroke
       App.stroke = [];
@@ -168,12 +159,6 @@
       // Tell socket that we've finished sending data
       App.socket.emit('end', null);
     });
-
-    // Do we need this?
-    App.canvas.onmouseout = function() {
-      App.mouse.click = false;
-      App.context.closePath();
-    };
 
 
 
