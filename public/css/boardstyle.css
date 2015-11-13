@@ -1,33 +1,44 @@
 body {
   background-color: black;
   position: relative;
+  background-image: url('../images/whiteboard.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 
 .whiteboard.container { 
   /*position: relative;*/
-  left: 30px;
+  margin: 10% 10%;
+/*  left: 30px;
   margin: 10px;
-  padding: 10px;
-  width: 70%;
-  background-color: #202020;
+  padding: 10px;*/
+  height: 80%;
+  width: 80%;
+  /*background-color: #fff;*/
 }
 
 .toolbar {
   background-color: lightblue;
   width: 908px;
   height: 100px;
-  margin: 0;
-  margin-bottom: 10px;
-  position: relative;
+  top: 500px;
+  position: absolute;
 }
 
 .board-frame {
-   background-image: url('../images/Whiteboard_Frame2.jpg');
-   background-size: 908px 680px;
-   padding: 45px 40px;
-   width: 828px;
-   height: 590px;
+   /*background-image: url('../images/Whiteboard_Frame2.jpg');*/
+
+
+   /*background-size: 908px 680px;*/
+   /*padding: 45px 40px;*/
+   /*width: 828px;*/
+   /*height: 590px;*/
    
 }
 
