@@ -51,6 +51,10 @@ var connect = function(boardUrl) {
         }
       });
 
+      // Emit end event to everyone but the person who stopped drawing.
+      socket.broadcast.emit('end', null);
+
+
       //Delete the stroke object to make room for the next stroke.
       delete socket.stroke;
 
@@ -111,7 +115,7 @@ app.get('/*', function(req, res) {
       //start new socket connection with board id for room
       console.log(req.url);
       connect(req.url);
-      res.redirect('/board.html');
+      res.redirect('board.html');
     }
   });
 });
