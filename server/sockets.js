@@ -50,6 +50,7 @@ var connect = function(boardUrl, board, io) {
           console.log("Successfully added");
         }
       });
+      console.log('draw finished', board);
 
       // Emit end event to everyone but the person who stopped drawing.
       socket.broadcast.emit('end', null);
