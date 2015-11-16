@@ -21,6 +21,7 @@ html {
   width: 100%;
   height: 100%;
   font-family: 'Open Sans';
+  overflow: hidden;
 }
 
 
@@ -68,20 +69,19 @@ h1 {
 .toolbar {
   background-color: #00BB9C;
   width: 100%;
-  height: 2%;
   margin: 0 auto;
   position: absolute;
 }
 
 .board-frame {
-   /*background-image: url('../images/Whiteboard_Frame2.jpg');*/
+ /*background-image: url('../images/Whiteboard_Frame2.jpg');*/
 
 
-   /*background-size: 908px 680px;*/
-   /*padding: 45px 40px;*/
-   /*width: 828px;*/
-   /*height: 590px;*/
-   
+ /*background-size: 908px 680px;*/
+ /*padding: 45px 40px;*/
+ /*width: 828px;*/
+ /*height: 590px;*/
+
 }
 
 #whiteboard {
@@ -95,73 +95,74 @@ h1 {
 /********button styles********/
 
 .btn-undo {
-   border-top: 1px solid #b3b3b3;
-   background: #bec2d4;
-   background: -webkit-gradient(linear, left top, left bottom, from(#0a5c58), to(#bec2d4));
-   background: -webkit-linear-gradient(top, #0a5c58, #bec2d4);
-   background: -moz-linear-gradient(top, #0a5c58, #bec2d4);
-   background: -ms-linear-gradient(top, #0a5c58, #bec2d4);
-   background: -o-linear-gradient(top, #0a5c58, #bec2d4);
-   padding: 16.5px 33px;
-   -webkit-border-radius: 20px;
-   -moz-border-radius: 20px;
-   border-radius: 20px;
-   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   box-shadow: rgba(0,0,0,1) 0 1px 0;
-   text-shadow: rgba(0,0,0,.4) 0 1px 0;
-   color: white;
-   font-size: 13px;
-   text-decoration: none;
-   vertical-align: middle;
-   }
-
-.btn-erase {
-  display: inline-block;
-  position: absolute;
-  width: 150px;
-  height: 75px;
-  top: 15px;
-  background-image: url('../images/eraser.svg');
-  background-size: 150px 75px;
+ border-top: 1px solid #b3b3b3;
+ background: #bec2d4;
+ background: -webkit-gradient(linear, left top, left bottom, from(#0a5c58), to(#bec2d4));
+ background: -webkit-linear-gradient(top, #0a5c58, #bec2d4);
+ background: -moz-linear-gradient(top, #0a5c58, #bec2d4);
+ background: -ms-linear-gradient(top, #0a5c58, #bec2d4);
+ background: -o-linear-gradient(top, #0a5c58, #bec2d4);
+ padding: 16.5px 33px;
+ -webkit-border-radius: 20px;
+ -moz-border-radius: 20px;
+ border-radius: 20px;
+ -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+ -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+ box-shadow: rgba(0,0,0,1) 0 1px 0;
+ text-shadow: rgba(0,0,0,.4) 0 1px 0;
+ color: white;
+ font-size: 13px;
+ text-decoration: none;
+ vertical-align: middle;
 }
 
+div.btn-erase {
+  height: 60px;
+  margin-left: 3%;
+  margin-top: 0.5%;
+}
+
+.btn-erase img {
+  position: absolute;
+  height: 100%;
+}
 
 
 .btn-tool:hover {
-   border-top-color: #94a8b5;
-   background: #94a8b5;
-   color: #2e262e;
-   }
+ border-top-color: #94a8b5;
+ background: #94a8b5;
+ color: #2e262e;
+}
 .btn-tool:active {
-   border-top-color: #05ab8f;
-   background: #05ab8f;
-   }
+ border-top-color: #05ab8f;
+ background: #05ab8f;
+}
 
 
 .button:hover {
-   border-top-color: #94a8b5;
-   background: #94a8b5;
-   color: #2e262e;
-   }
+ border-top-color: #94a8b5;
+ background: #94a8b5;
+ color: #2e262e;
+}
 .button:active {
-   border-top-color: #05ab8f;
-   background: #05ab8f;
-   }
-
-.btn-undo {
-  position: absolute;
-  top: 2em;
-  right: 50px;
+ border-top-color: #05ab8f;
+ background: #05ab8f;
 }
 
+.new {
+  position: absolute;
+  right: 15px;
+  top: 32%;
+  width: 106px;
+  height: 37px;
+}
 
 
 .pens {
   /*display: inline-block;*/
   position: absolute;
   left: 50%;
-  top: 15px;
+  top: 5%;
   /*width: 100px;*/
 }
 
