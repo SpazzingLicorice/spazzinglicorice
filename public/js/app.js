@@ -81,6 +81,23 @@ App.init = function() {
   // Draws the board upon join
   App.socket.on('join', function(board) {
     console.log("Joining the board.");
+    //check for null board data
+      if (board) {
+        for (var i = 0; i < board.strokes.length; i++) {
+    //check for null stroke data
+        if (board.strokes[i]) {
+    //set pen, then draw path
+          var datapath = board.strokes[i].path;
+          var datapen = board.strokes[i].pen;
+          App.initializeMouseDown(datapen, datapath[0][0], datapath[0][1]);
+    //draw path
+            for (var j = 0; j < datapath.length; j++) {
+             App.draw(datapath[j][0], datapath[j][1]);
+            }
+          App.context.closePath();
+        }
+      }
+    }
   });
 
 
