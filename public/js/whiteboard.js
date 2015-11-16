@@ -9,9 +9,11 @@ angular.module('whiteboard', ['ui.router'])
     $rootScope.app = App;
   })
 
-.controller('toolbar', function($scope, tools) {
+.controller('toolbar', function($scope, $element, tools) {
   $scope.changePen = function(option) {
     tools.changePen(option);
+    console.log($element);
+    $('input').not($('#' + option)).attr('checked', false);
   };
 })
 
