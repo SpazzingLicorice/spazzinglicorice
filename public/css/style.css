@@ -7,7 +7,8 @@ body {
   padding: 0;
   background: #000; 
   color: #000;
-  font-family: 'Source Sans Pro', sans-serif;
+  /*font-family: 'Source Sans Pro', sans-serif;*/
+  font-family: 'Montserrat', sans-serif;
   font-size: 15pt;
   letter-spacing: -0.025em;
   line-height: 1.75em;
@@ -91,13 +92,19 @@ video {
 #header h1 {
   font-size: 4.35em;
   font-weight: 900;
-  margin: 0 0 0.4em 0;
+  margin: 0 0 0.5em 0;
   line-height: 1em;
 
 }
 
 #header p {
   font-size: 1.25em;
-  margin: 0.75em 0 1em 0;
+  margin: 0.75em 0 1.5em 0;
   opacity: 0.75;
+}
+
+
+button {
+  width: 341px;
+  height: 50px;
 }
