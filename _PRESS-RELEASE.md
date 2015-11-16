@@ -18,20 +18,19 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
-  Whiteboard.com is a realtime collaborative whiteboarding tool.
+  Coderboard is a realtime collaborative whiteboarding tool for coding interviews.
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-  Whiteboard.com is better way to conduct remote programming interviews than realtime text editors.
+  Coderboard is better way to conduct remote programming interviews than realtime text editors.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-  TBD.
+  Coderboard is the best tool for remote whiteboarding. As an interviewer, you want to understand how candidates think -- and we all know the best way to do that is by whiteboarding problems. Learn how your candidates diagram architecture and how they explain their thought process before the on-site interview.
 
 ## Problem ##
   > Describe the problem your product solves.
-  The problem is that most remote code interviewing tools don't take advantage of whiteboarding interview techniques, which is the preferred method of
-  assessing candidates in an in-person setting.
+  The problem is that most remote programming interview tools don't take advantage of whiteboarding interview techniques, which is the preferred method of assessing candidates in an in-person setting.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
@@ -39,15 +38,16 @@ Once the project moves into development, the press release can be used as a touc
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
-  
+  Coderboard is built using the latest JavaScript technologies including: Web Sockets and WebRTC built on top of AngularJS, NodeJS, ExpressJS, and MongoDB.
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
-  Go to whiteboard.com to start a new whiteboard and hit the share button to share your board with collaborators.
+  Go to http://hidden-castle-8290.herokuapp.com/ and start whiteboarding in one click!
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
-  "I use whiteboard.com to conduct all my coding interviews because I want to learn about a candidate's thought process rather than how quickly they can type code."
+  "I use Coderboard to conduct all my programming interviews because I want to learn about a candidate's thought process rather than how quickly they can type code."
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  Go to http://hidden-castle-8290.herokuapp.com/ to start a new whiteboarding session in just one click -- no sign up required!
