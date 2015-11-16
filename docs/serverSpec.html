@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>serverSpec.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="board.html">
+                  board.js
+                </a>
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.js
+                </a>
+              
+                
+                <a class="source" href="initialize.html">
+                  initialize.js
+                </a>
+              
+                
+                <a class="source" href="whiteboard.html">
+                  whiteboard.js
+                </a>
+              
+                
+                <a class="source" href="jquery.event.drag-2.2.html">
+                  jquery.event.drag-2.2.js
+                </a>
+              
+                
+                <a class="source" href="server.html">
+                  server.js
+                </a>
+              
+                
+                <a class="source" href="sockets.html">
+                  sockets.js
+                </a>
+              
+                
+                <a class="source" href="dbTest.html">
+                  dbTest.js
+                </a>
+              
+                
+                <a class="source" href="liveServerSpec.html">
+                  liveServerSpec.js
+                </a>
+              
+                
+                <a class="source" href="serverSpec.html">
+                  serverSpec.js
+                </a>
+              
+                
+                <a class="source" href="stubs.html">
+                  stubs.js
+                </a>
+              
+                
+                <a class="source" href="test.html">
+                  test.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>serverSpec.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>// var handler = require(‘../request-handler’);
+var expect = require(‘chai’).expect;
+var stubs = require(‘./Stubs’);</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>// Conditional async testing, akin to Jasmine’s waitsFor()
+// Will wait for test to be truthy before executing callback
+function waitForThen(test, cb) {
+  setTimeout(function() {
+    test() ? cb.apply(this) : waitForThen(test, cb);
+  }, 5);
+}</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>describe(‘Node Server Request Listener Function’, function() {
+  it(‘Should answer GET requests for /classes/room with a 200 status code’, function() {
+    // This is a fake server request. Normally, the server would provide this,
+    // but we want to test our function’s behavior totally independent of the server code
+    var req = new stubs.request(‘/classes/room1’, ‘GET’);
+    var res = new stubs.response();</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <pre><code>handler.requestHandler(req, res);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <pre><code>expect(res._responseCode).to.equal(<span class="hljs-number">200</span>);
+expect(res._ended).to.equal(<span class="hljs-literal">true</span>);
+</code></pre><p>  });</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>  it(‘Should send back parsable stringified JSON’, function() {
+    var req = new stubs.request(‘/classes/room1’, ‘GET’);
+    var res = new stubs.response();</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <pre><code>handler.requestHandler(req, res);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <pre><code>expect(<span class="hljs-built_in">JSON</span>.parse.bind(<span class="hljs-keyword">this</span>, res._data)).to.not.throw();
+expect(res._ended).to.equal(<span class="hljs-literal">true</span>);
+</code></pre><p>  });</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>  it(‘Should send back an object’, function() {
+    var req = new stubs.request(‘/classes/room1’, ‘GET’);
+    var res = new stubs.response();</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <pre><code>handler.requestHandler(req, res);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <pre><code><span class="hljs-keyword">var</span> parsedBody = <span class="hljs-built_in">JSON</span>.parse(res._data);
+expect(parsedBody).to.be.an(<span class="hljs-string">'object'</span>);
+expect(res._ended).to.equal(<span class="hljs-literal">true</span>);
+</code></pre><p>  });</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>  it(‘Should send an object containing a <code>results</code> array’, function() {
+    var req = new stubs.request(‘/classes/room1’, ‘GET’);
+    var res = new stubs.response();</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <pre><code>handler.requestHandler(req, res);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <pre><code><span class="hljs-keyword">var</span> parsedBody = <span class="hljs-built_in">JSON</span>.parse(res._data);
+expect(parsedBody).to.have.property(<span class="hljs-string">'results'</span>);
+expect(parsedBody.results).to.be.an(<span class="hljs-string">'array'</span>);
+expect(res._ended).to.equal(<span class="hljs-literal">true</span>);
+</code></pre><p>  });</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>  it(‘Should accept posts to /classes/room’, function() {
+    var stubMsg = {
+      username: ‘Jono’,
+      message: ‘Do my bidding!’
+    };
+    var req = new stubs.request(‘/classes/room1’, ‘POST’, stubMsg);
+    var res = new stubs.response();</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <pre><code>handler.requestHandler(req, res);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <pre><code><span class="hljs-comment">// Expect 201 Created response status</span>
+expect(res._responseCode).to.equal(<span class="hljs-number">201</span>);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <pre><code><span class="hljs-comment">// Testing for a newline isn't a valid test</span>
+<span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Replace with with a valid test</span>
+<span class="hljs-comment">// expect(res._data).to.equal(JSON.stringify('\n'));</span>
+expect(res._ended).to.equal(<span class="hljs-literal">true</span>);
+</code></pre><p>  });</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>it(‘Should respond with messages that were previously posted’, function() {
+    var stubMsg = {
+      username: ‘Jono’,
+      message: ‘Do my bidding!’
+    };
+    var req = new stubs.request(‘/classes/room1’, ‘POST’, stubMsg);
+    var res = new stubs.response();</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <pre><code>handler.requestHandler(req, res);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <pre><code>expect(res._responseCode).to.equal(<span class="hljs-number">201</span>);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <pre><code><span class="hljs-comment">// Now if we request the log for that room the message we posted should be there:</span>
+req = <span class="hljs-keyword">new</span> stubs.request(<span class="hljs-string">'/classes/room1'</span>, <span class="hljs-string">'GET'</span>);
+res = <span class="hljs-keyword">new</span> stubs.response();
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <pre><code>handler.requestHandler(req, res);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <pre><code>expect(res._responseCode).to.equal(<span class="hljs-number">200</span>);
+<span class="hljs-keyword">var</span> messages = <span class="hljs-built_in">JSON</span>.parse(res._data).results;
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <pre><code>expect(messages.length).to.be.above(<span class="hljs-number">0</span>);
+expect(messages[<span class="hljs-number">0</span>].username).to.equal(<span class="hljs-string">'Jono'</span>);
+expect(messages[<span class="hljs-number">0</span>].message).to.equal(<span class="hljs-string">'Do my bidding!'</span>);
+expect(res._ended).to.equal(<span class="hljs-literal">true</span>);
+</code></pre><p>  });</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>  it(‘Should 404 when asked for a nonexistent file’, function() {
+    var req = new stubs.request(‘/arglebargle’, ‘GET’);
+    var res = new stubs.response();</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <pre><code>handler.requestHandler(req, res);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <pre><code><span class="hljs-comment">// Wait for response to return and then check status code</span>
+waitForThen(
+  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> res._ended; },
+  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    expect(res._responseCode).to.equal(<span class="hljs-number">404</span>);
+});
+</code></pre><p>  });</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>});</p>
+
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

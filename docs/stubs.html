@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>stubs.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="board.html">
+                  board.js
+                </a>
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.js
+                </a>
+              
+                
+                <a class="source" href="initialize.html">
+                  initialize.js
+                </a>
+              
+                
+                <a class="source" href="whiteboard.html">
+                  whiteboard.js
+                </a>
+              
+                
+                <a class="source" href="jquery.event.drag-2.2.html">
+                  jquery.event.drag-2.2.js
+                </a>
+              
+                
+                <a class="source" href="server.html">
+                  server.js
+                </a>
+              
+                
+                <a class="source" href="sockets.html">
+                  sockets.js
+                </a>
+              
+                
+                <a class="source" href="dbTest.html">
+                  dbTest.js
+                </a>
+              
+                
+                <a class="source" href="liveServerSpec.html">
+                  liveServerSpec.js
+                </a>
+              
+                
+                <a class="source" href="serverSpec.html">
+                  serverSpec.js
+                </a>
+              
+                
+                <a class="source" href="stubs.html">
+                  stubs.js
+                </a>
+              
+                
+                <a class="source" href="test.html">
+                  test.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>stubs.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>// Methods for stubbing HTTP requests and responses
+module.exports = {</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>  response: function() {
+    this._ended = false;
+    this._responseCode = null;
+    this._headers = null;
+    this._data = null;</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <pre><code><span class="hljs-keyword">this</span>.writeHead = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">responseCode, headers</span>) </span>{
+  <span class="hljs-keyword">this</span>._responseCode = responseCode;
+  <span class="hljs-keyword">this</span>._headers = headers;
+}.bind(<span class="hljs-keyword">this</span>);
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <pre><code><span class="hljs-keyword">this</span>.end = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+  <span class="hljs-keyword">this</span>._ended = <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">this</span>._data = data;
+}.bind(<span class="hljs-keyword">this</span>);
+</code></pre><p>  },</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>  request: function(url, method, postdata) {
+    this.url = url;
+    this.method = method;
+    this._postData = postdata;
+    this.setEncoding = function() { /<em> noop </em>/ };</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <pre><code><span class="hljs-keyword">this</span>.addListener = <span class="hljs-keyword">this</span>.on = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">type, callback</span>) </span>{
+  <span class="hljs-keyword">if</span> (type == <span class="hljs-string">'data'</span>) {
+    callback(<span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-keyword">this</span>._postData));
+  }
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <pre><code>  <span class="hljs-keyword">if</span> (type == <span class="hljs-string">'end'</span>) {
+    callback();
+  }
+</code></pre>
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <pre><code>}.bind(<span class="hljs-keyword">this</span>);
+</code></pre><p>  }</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>};</p>
+
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
