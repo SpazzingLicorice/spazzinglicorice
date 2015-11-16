@@ -1,32 +1,33 @@
+// # Socket Connection Handler
+
+// Import board model from [board.js](../docs/board.html)
 var Board = require('../db/board');
 
-/*************************************
-          SOCKET CONNECTION
-**************************************/
+// **boardUrl:** *String* <br>
+// **board:** *Mongoose board model* <br>
+// **io:** *Export of our Socket.io connection from [server.js](../docs/server.html)*
 var connect = function(boardUrl, board, io) {
+  // Set the Socket.io namespace to the boardUrl.
   var whiteboard = io.of(boardUrl);
 
   whiteboard.once('connection', function(socket) {
-    //Emit the whole board on join.
+    // Send the current state of the board to the client immediately on joining.
     socket.emit('join', board);
 
-    //Store pen properties on stroke object
     socket.on('start', function(pen) {
-      /******************************
-      A stroke is essentially a continous
-      line drawn by the user 
-      *******************************/
+
+      // **A stroke is essentially a continous line drawn by the user.**
       socket.stroke = {
         pen: pen,
         path: []
       };
     });
 
-    //Push coordinates into stroke's path array
     socket.on('drag', function(coords) {
-      // Add the new coordinates stroke's path
+      //Push coordinates into the stroke's drawing path.
       socket.stroke.path.push(coords);
-
+      // This payload will be sent back to all sockets *except the socket
+      // that initiated the draw event.*
       var payload = {
         pen: socket.stroke.pen,
         coords: coords
@@ -36,21 +37,20 @@ var connect = function(boardUrl, board, io) {
       socket.broadcast.emit('drag', payload);
     });
 
-    //When stroke is finished, push it to our db.
+    //When stroke is finished, add it to our db.
     socket.on('end', function() {
       var finishedStroke = socket.stroke;
 
-      //Get the board that the socket is connected to
+      //Get the board that the socket is connected to.
       var id = socket.nsp.name.slice(1);
 
-      //Update the board with the new stroke
+      //Update the board with the new stroke.
       Board.boardModel.update({id: id},{$push: {strokes: finishedStroke} },{upsert:true},function(err, board){
         if(err){ console.log(err); }
         else {
           console.log("Successfully added");
         }
       });
-      console.log('draw finished', board);
 
       // Emit end event to everyone but the person who stopped drawing.
       socket.broadcast.emit('end', null);
@@ -61,4 +61,5 @@ var connect = function(boardUrl, board, io) {
   });
 };
 
+// Required by [server.js](../docs/server.html)
 module.exports = connect;

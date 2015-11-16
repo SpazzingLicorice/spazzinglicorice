@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>board.js</title>
+  <title>Mongoose Board Model & Schema</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -42,11 +42,6 @@
                 
                 <a class="source" href="whiteboard.html">
                   whiteboard.js
-                </a>
-              
-                
-                <a class="source" href="jquery.event.drag-2.2.html">
-                  jquery.event.drag-2.2.js
                 </a>
               
                 
@@ -91,12 +86,6 @@
     
     <ul class="sections">
         
-          <li id="title">
-              <div class="annotation">
-                  <h1>board.js</h1>
-              </div>
-          </li>
-        
         
         
         <li id="section-1">
@@ -105,7 +94,8 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <h1 id="mongoose-board-model-schema">Mongoose Board Model &amp; Schema</h1>
+
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
@@ -114,7 +104,9 @@
 <span class="hljs-keyword">var</span> boardSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   id: <span class="hljs-built_in">String</span>,
   strokes: <span class="hljs-built_in">Array</span>
-});</pre></div></div>
+});
+
+<span class="hljs-keyword">var</span> Board = mongoose.model(<span class="hljs-string">'board'</span>, boardSchema);</pre></div></div>
             
         </li>
         
@@ -125,47 +117,11 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>var strokeSchema = new mongoose.Schema({
-  fillStyle: String,
-  strokeStyle: String,
-  lineWidth: Number,
-  lineCap: String,
-  path: Array
-});</p>
+              <p>Required by <a href="../docs/server.html">Server</a> &amp; <a href="../docs/sockets.html">Socket Connection Handler</a></p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-keyword">var</span> Board = mongoose.model(<span class="hljs-string">'board'</span>, boardSchema);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-3">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>var Stroke = mongoose.model(‘stroke’, strokeSchema);</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-built_in">module</span>.exports.boardModel = Board;</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-4">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>module.exports.strokeModel = Stroke;</p>
-
-            </div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">module</span>.exports.boardModel = Board;</pre></div></div>
             
         </li>
         

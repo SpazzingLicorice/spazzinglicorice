@@ -1,7 +1,8 @@
+// # MongoDB Database Configuration
 var mongoose = require('mongoose');
 
-// Change for development
-// mongoose.connect('mongodb://127.0.0.1');
+// Currently configured for deployment. Change to this for development: 
+// ```mongoose.connect('mongodb://127.0.0.1');```
 mongoose.connect(process.env.MONGOLAB_URI);
 
 var db = mongoose.connection;
@@ -11,5 +12,5 @@ db.once('open', function(cb) {
   console.log('connected to db');
 });
 
+// Required by [Mongoose Board Model](../docs/board.html)
 module.exports = db;
-
