@@ -1,4 +1,4 @@
-/* You'll need to have MySQL running and your Node server running
+/* You'll need to have mongo running on the right url and your Node server running
  * for these tests to pass. */
 
 var mongoose = require('mongoose');
@@ -6,97 +6,78 @@ var request = require("request"); // You might need to npm install the request m
 var expect = require('chai').expect;
 var Board = require('../db/board').boardModel;
 
+var newBoard, boardID;
+var db = mongoose.connection;
+var board = db.model('board');
+
 describe("Persistent Boards Server", function() {
 
   beforeEach(function(done) {
-    var db = mongoose.createConnection('mongodb://127.0.0.1');
+    // var db = mongoose.createConnection('mongodb://127.0.0.1');
+    newBoard = board({strokes: []});
+    boardID = newBoard._id;
 
-    var db = mongoose.connection;
-    var board = db.model('board');
-    var newBoard = board({strokes: []});
-
-    console.log(newBoard);
     newBoard.save(function() {
-      console.log('hello')
       done();
     });
-    // done();
   });
 
-  afterEach(function() {
-    // dbConnection.end();
+  afterEach(function(done) {
+    Board.find({_id: boardID}).remove(function() {
+      done();
+    });
   });
 
-  it("Should pass", function(done) {
-    done();
-  })
+  it("Should create a board with a unique id", function(done) {
+    Board.find({_id: boardID}, function(err, docs) {
+      expect(docs.length).to.equal(1);
+      done();
+    });
+  });
 
-  // it("Should insert posted messages to the DB", function(done) {
-  //   // Post the user to the chat server.
-  //   request({ method: "POST",
-  //             uri: "http://127.0.0.1:3000/classes/users",
-  //             json: { username: "Valjean" }
-  //   }, function () {
-  //     // Post a message to the node chat server:
-  //     request({ method: "POST",
-  //             uri: "http://127.0.0.1:3000/classes/messages",
-  //             json: {
-  //               username: "Valjean",
-  //               message: "In mercy's name, three days is all I need.",
-  //               roomname: "Hello"
-  //             }
-  //     }, function () {
-  //       // Now if we look in the database, we should find the
-  //       // posted message there.
+  it("Should save strokes", function(done) {
+    var stroke = [[1,1],[2,2],[3,3]];
 
-  //       // TODO: You might have to change this test to get all the data from
-  //       // your message table, since this is schema-dependent.
-  //       var queryString = "SELECT * FROM messages";
-  //       var queryArgs = [];
+    Board.update({_id: boardID},{$push: {strokes: stroke} },{upsert:true}, function() {
+      Board.findOne({_id: boardID}, function(err, doc) {
+        expect(doc.strokes).to.not.be.empty;
+        done();
+      });
+    });
+  });
 
-  //       dbConnection.query(queryString, queryArgs, function(err, results) {
-  //         // Should have one result:
-  //         expect(results.length).to.equal(1);
+  it("Should save strokes to the right board", function(done) {
+    var otherBoard = board({strokes: [[[4,1],[5,2],[6,3]]]});
+    var stroke1 = [[1,1],[2,2],[3,3]];
 
-  //         // TODO: If you don't have a column named text, change this test.
-  //         expect(results[0].message).to.equal("In mercy's name, three days is all I need.");
+    Board.update({_id: boardID},{$push: {strokes: stroke1} },{upsert:true}, function() {
+      Board.findOne({_id: boardID}, function(err, doc) {
+        expect(otherBoard.strokes).to.not.deep.equal(doc.strokes);
 
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
+        // Remove otherboard
+        Board.find({_id: otherBoard._id}).remove(function() {
+          done();
+        });
+      });
+    });
+  });
 
-  // it("Should output all messages from the DB", function(done) {
-  //   // Let's insert a message into the db
-  //   var tablename = "messages";
-  //   // TODO - The exact query string and query args to use
-  //   // here depend on the schema you design, so I'll leave
-  //   // them up to you. */
-  //   request({ method: "POST",
-  //             uri: "http://127.0.0.1:3000/classes/messages",
-  //             json: {
-  //               username: "Javert",
-  //               message: "Men like you can never change!"
-  //             }},
-  //   function() {
-  //     var queryString = "SELECT * FROM messages";
-  //     var queryArgs = [];
+  it("Should retrieve boards with all of its strokes", function(done) {
+    var stroke1 = [[1,1],[2,2],[3,3]];
+    var stroke2 = [[4,4],[5,5],[6,6]];
 
-  //     dbConnection.query(queryString, queryArgs, function(err) {
-  //       console.log('go');
-  //       if (err) { console.log('er'); throw err; }
+    expect(newBoard.strokes.length).to.equal(0);
 
-  //       // Now query the Node chat server and see if it returns
-  //       // the message we just inserted:
-  //       request("http://127.0.0.1:3000/classes/messages", function(error, response, body) {
-  //         console.log('body', body);
-  //         var messageLog = JSON.parse(body);
-  //         expect(messageLog[0].message).to.equal("Men like you can never change!");
-  //         expect(messageLog[0].roomName).to.equal("General");
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
+    Board.update({_id: boardID},{$push: {strokes: stroke1} },{upsert:true}, function() {
+      Board.update({_id: boardID},{$push: {strokes: stroke2} },{upsert:true}, function() {
+      });
+    });
+
+    setTimeout(function() {
+      Board.findOne({_id: boardID}, function(err, doc) {
+        expect(doc.strokes.length).to.equal(2);
+        done();
+      });
+    }, 500); // If this test fails, you might have to increase this time.
+  });
 });
