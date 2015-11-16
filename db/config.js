@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 // Change for development
-mongoose.connect('mongodb://127.0.0.1');
-// mongoose.connect(process.env.MONGOLAB_URI);
+// mongoose.connect('mongodb://127.0.0.1');
+mongoose.connect(process.env.MONGOLAB_URI);
 
 var db = mongoose.connection;
 
