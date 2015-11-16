@@ -11,12 +11,20 @@ var handleSocket = require('./server/sockets');
 
 // ## Routes
 
-// **Static folder for serving assets**
-app.use(express.static(__dirname + '/public'));
+// **Static folder for serving application assets**
+app.use('/', express.static(__dirname + '/public'));
+
+// **Static folder for serving documentation**
+app.use('/documentation', express.static(__dirname + '/docs'));
 
 // **Home Page**
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
+});
+
+// **Documentation Page**
+app.get('/documentation', function(req, res) {
+  res.sendFile(__dirname + '/docs/server.html');
 });
 
 
@@ -45,7 +53,7 @@ app.get('/*', function(req, res) {
     if (err) {
       res.redirect('/');
     } else {
-      // Invoke [request handler](../docs/sockets.html) for a new socket connection
+      // Invoke [request handler](../documentation/sockets.html) for a new socket connection
       // with board id as the Socket.io namespace.
       handleSocket(req.url, board, io);
       // Send back whiteboard html template.

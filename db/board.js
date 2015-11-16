@@ -9,5 +9,5 @@ var boardSchema = new mongoose.Schema({
 
 var Board = mongoose.model('board', boardSchema);
 
-// Required by [Server](../docs/server.html) & [Socket Connection Handler](../docs/sockets.html)
+// Required by [Server](../documentation/server.html) & [Socket Connection Handler](../documentation/sockets.html)
 module.exports.boardModel = Board;

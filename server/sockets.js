@@ -1,11 +1,11 @@
 // # Socket Connection Handler
 
-// Import board model from [board.js](../docs/board.html)
+// Import board model from [board.js](../documentation/board.html)
 var Board = require('../db/board');
 
 // **boardUrl:** *String* <br>
 // **board:** *Mongoose board model* <br>
-// **io:** *Export of our Socket.io connection from [server.js](../docs/server.html)*
+// **io:** *Export of our Socket.io connection from [server.js](../documentation/server.html)*
 var connect = function(boardUrl, board, io) {
   // Set the Socket.io namespace to the boardUrl.
   var whiteboard = io.of(boardUrl);
@@ -61,5 +61,5 @@ var connect = function(boardUrl, board, io) {
   });
 };
 
-// Required by [server.js](../docs/server.html)
+// Required by [server.js](../documentation/server.html)
 module.exports = connect;
