@@ -12,11 +12,20 @@ module.exports = function(grunt) {
     watch: {
       files: ['<%= jshint.files %>'],
       tasks: ['jshint']
+    },
+    docco: {
+      debug: {
+        src: ['server.js','test/**/*.js', 'server/**/*.js', 'public/**/*.js', 'db/**/*.js'],
+        options: {
+          output: 'docs/'
+        }
+      }
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  // grunt.loadNpmTasks('grunt-contrib-jshint');
+  // grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-docco');
 
   grunt.registerTask('default', ['jshint']);
 

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>server.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="board.html">
+                  board.js
+                </a>
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.js
+                </a>
+              
+                
+                <a class="source" href="initialize.html">
+                  initialize.js
+                </a>
+              
+                
+                <a class="source" href="whiteboard.html">
+                  whiteboard.js
+                </a>
+              
+                
+                <a class="source" href="jquery.event.drag-2.2.html">
+                  jquery.event.drag-2.2.js
+                </a>
+              
+                
+                <a class="source" href="server.html">
+                  server.js
+                </a>
+              
+                
+                <a class="source" href="sockets.html">
+                  sockets.js
+                </a>
+              
+                
+                <a class="source" href="dbTest.html">
+                  dbTest.js
+                </a>
+              
+                
+                <a class="source" href="liveServerSpec.html">
+                  liveServerSpec.js
+                </a>
+              
+                
+                <a class="source" href="serverSpec.html">
+                  serverSpec.js
+                </a>
+              
+                
+                <a class="source" href="stubs.html">
+                  stubs.js
+                </a>
+              
+                
+                <a class="source" href="test.html">
+                  test.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>server.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*************************************
+            DEPENDENCIES
+**************************************/</span>
+<span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">var</span> app = express();
+<span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>).Server(app);
+<span class="hljs-keyword">var</span> io = <span class="hljs-built_in">require</span>(<span class="hljs-string">'socket.io'</span>)(http);
+<span class="hljs-keyword">var</span> Board = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./db/board'</span>);
+<span class="hljs-keyword">var</span> port = process.env.PORT || <span class="hljs-number">8080</span>;
+<span class="hljs-keyword">var</span> handleSocket = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./server/sockets'</span>);
+
+<span class="hljs-comment">/*************************************
+                ROUTES
+**************************************/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Static folder</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.use(express.static(__dirname + <span class="hljs-string">'/public'</span>));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Home Page</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+  res.sendFile(__dirname + <span class="hljs-string">'/public/index.html'</span>);
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Get a new whiteboard</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.get(<span class="hljs-string">'/new'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>create a new board</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> board = <span class="hljs-keyword">new</span> Board.boardModel({strokes: []});
+  <span class="hljs-keyword">var</span> id = board._id.toString();
+  board.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, board</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) { <span class="hljs-built_in">console</span>.error(err); }
+    <span class="hljs-keyword">else</span> {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'board saved!'</span>);
+    }
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>redirect to the new board</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  res.redirect(<span class="hljs-string">'/'</span> + id);
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Wildcard &amp; board route id handler</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.get(<span class="hljs-string">'/*'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">var</span> id = req.url.slice(<span class="hljs-number">1</span>);
+
+  Board.boardModel.findOne({id: id}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, board</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>if it is not found send to home page</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (err) {
+      res.redirect(<span class="hljs-string">'/'</span>);
+    } <span class="hljs-keyword">else</span> {
+
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'board: '</span>, board);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Start new socket connection with board id for room</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      handleSocket(req.url, board, io);
+
+      res.sendFile(__dirname + <span class="hljs-string">'/public/board.html'</span>);
+    }
+  });
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>START</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>http.listen(port, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'server listening on'</span>, port, <span class="hljs-string">'at'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
