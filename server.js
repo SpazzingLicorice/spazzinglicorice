@@ -1,6 +1,6 @@
-/*************************************
-            DEPENDENCIES
-**************************************/
+// # Main Server
+
+// ## Dependencies
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -9,23 +9,20 @@ var Board = require('./db/board');
 var port = process.env.PORT || 8080;
 var handleSocket = require('./server/sockets');
 
-/*************************************
-                ROUTES
-**************************************/
+// ## Routes
 
-// Static folder
+// **Static folder for serving assets**
 app.use(express.static(__dirname + '/public'));
 
-
-// Home Page
+// **Home Page**
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
 
 
-// Get a new whiteboard
+// **Get a new whiteboard**
 app.get('/new', function(req, res) {
-  //create a new board
+  // Create a new mongoose board model.
   var board = new Board.boardModel({strokes: []});
   var id = board._id.toString();
   board.save(function(err, board) {
@@ -34,32 +31,30 @@ app.get('/new', function(req, res) {
       console.log('board saved!');
     }
   });
-
-  //redirect to the new board
+  // Redirect to the new board.
   res.redirect('/' + id);
 });
 
 
-// Wildcard & board route id handler
+// **Wildcard route & board id handler.**
 app.get('/*', function(req, res) {
   var id = req.url.slice(1);
-
   Board.boardModel.findOne({id: id}, function(err, board) {
-    //if it is not found send to home page
+    // If the board doesn't exist, or the route is invalid,
+    // then redirect to the home page.
     if (err) {
       res.redirect('/');
     } else {
-
-      console.log('board: ', board);
-      // Start new socket connection with board id for room
+      // Invoke [request handler](../docs/sockets.html) for a new socket connection
+      // with board id as the Socket.io namespace.
       handleSocket(req.url, board, io);
-
+      // Send back whiteboard html template.
       res.sendFile(__dirname + '/public/board.html');
     }
   });
 });
 
-// START
+// **Start the server.**
 http.listen(port, function() {
   console.log('server listening on', port, 'at', new Date());
 });

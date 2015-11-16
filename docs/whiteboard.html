@@ -45,11 +45,6 @@
                 </a>
               
                 
-                <a class="source" href="jquery.event.drag-2.2.html">
-                  jquery.event.drag-2.2.js
-                </a>
-              
-                
                 <a class="source" href="server.html">
                   server.js
                 </a>
@@ -119,9 +114,11 @@
     $rootScope.app = App;
   })
 
-.controller(<span class="hljs-string">'toolbar'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, tools</span>) </span>{
+.controller(<span class="hljs-string">'toolbar'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, $element, tools</span>) </span>{
   $scope.changePen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">option</span>) </span>{
     tools.changePen(option);
+    <span class="hljs-built_in">console</span>.log($element);
+    $(<span class="hljs-string">'input'</span>).not($(<span class="hljs-string">'#'</span> + option)).attr(<span class="hljs-string">'checked'</span>, <span class="hljs-literal">false</span>);
   };
 })
 
