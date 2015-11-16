@@ -4,6 +4,10 @@ $(function() {
   // Initialize the app
   App.init();
 
+  //////////// Set Videos to be Draggable //////////////  
+  $('#localVideo').draggable();
+  $('#remoteVideos').draggable();
+
   //////////// Mouse Events //////////////
 
   // Upon mousedown event detection: 

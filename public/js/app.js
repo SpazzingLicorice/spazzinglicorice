@@ -6,6 +6,25 @@ App.init = function() {
   var ioRoom = window.location.href;
   App.socket = io(ioRoom);
 
+  //////////// Video Chat ///////////////
+
+  //Create Video chat Object
+  var webrtc = new SimpleWebRTC({
+      // the id/element dom element that will hold "our" video
+      localVideoEl: 'localVideo',
+      // the id/element dom element that will hold remote videos
+      remoteVideosEl: 'remoteVideos',
+      // immediately ask for camera access
+      autoRequestMedia: true
+  });
+
+  webrtc.on('readyToCall', function () {
+      // The room name is the same as our socket connection
+      webrtc.joinRoom(ioRoom);
+  });
+
+  //////////// Whiteboard ///////////////
+
   // Getting properties of the whiteboard
   App.canvas = $('#whiteboard');
   App.canvas[0].width = window.innerWidth;
