@@ -1,33 +1,40 @@
-////// Initialize the app ///////
+// # App Initialization
+
+// ##### [Back to Table of Contents](./tableofcontents.html)
+
+
+
+// Initialize the app.
 
 $(function() {
-  // Initialize the app
+  // Set up all app properties listed in [app.js](../docs/app.html).
   App.init();
 
-  //////////// Set Videos to be Draggable //////////////  
+  // Set up video to be draggable.
   $('#localVideo').draggable();
   $('#remoteVideos').draggable();
 
-  //////////// Mouse Events //////////////
+  // **Mouse Events**
 
-  // Upon mousedown event detection: 
+  // On mousedown detection, initialize drawing properties based on mouse coordinates. 
   App.canvas.on('mousedown', function(e) {
 
+    // Allow user drawing only if other users are not drawing.
     if (!App.isAnotherUserActive) {
       console.log("User has started to draw.");
 
-      // Initialize mouse position
+      // Initialize mouse position.
       App.mouse.click = true;
       App.mouse.x = e.offsetX;
       App.mouse.y = e.offsetY;
 
-      // Initialize methods to prepare for drawing
+      // ```App.initializeMouseDown``` is from [app.js](../docs/app.html) where it initializes the pen and canvas before rendeirng.
       App.initializeMouseDown(App.pen, App.mouse.x, App.mouse.y);
 
-      // Emit the pen object
+      // Emit the pen object through socket. 
       App.socket.emit('start', App.pen);
 
-      // Add the first mouse coordinates to stroke array for storage
+      // Add the first mouse coordinates to the ```stroke``` array for storage.
       App.stroke.push([App.mouse.x, App.mouse.Y]);
     } else {
       console.log('Another user is drawing - please wait.');
@@ -35,26 +42,25 @@ $(function() {
   });
 
 
-  // Mousedrag event
+  // On mousedrag detection, start to render drawing elements based on user's cursor coordinates.
   App.canvas.on('drag', function(e) {
+    // Allow user drawing only if other users are not drawing.
     if (!App.isAnotherUserActive) {
       if (App.mouse.click) {
-        console.log("Dragging");
         App.mouse.drag = true;
 
-        // Find x,y coordinates of dragging
+        // Find x,y coordinates of the mouse dragging on the anvas.
         var x = e.offsetX;
         var y = e.offsetY;
 
-        // Render the drawing
+        // Render the drawing.
         App.draw(x, y);
-
         console.log("Currently drawing coordinates", [x, y]);
 
-        // Continue to push coordinates to stroke array (as part of storage)
+        // Continue to push coordinates to stroke array (as part of storage).
         App.stroke.push([x, y]);
 
-        // Emit x, y in array
+        // Emit x, y in a tuple through socket. 
         App.socket.emit('drag', [x, y]);
       }
     } else {
@@ -62,19 +68,18 @@ $(function() {
     }
   });
 
-  // Mouse dragend event
+  // On mouse dragend detection, tell socket that we have finished drawing. 
   App.canvas.on('dragend', function(e) {
     if (!App.isAnotherUserActive) {
       App.mouse.drag = false;
       App.mouse.click = false;
 
-      // Sample of resulting data to be pushed to db
       console.log("Drawing is finished and its data is being pushed to the server", [App.stroke, App.pen]);
 
-      // Empty App.stroke
+      // Empty the App.stroke array.
       App.stroke = [];
 
-      // Tell socket that we've finished sending data
+      // Tell socket that we've finished sending data.
       App.socket.emit('end', null);
 
     } else {
@@ -82,6 +87,7 @@ $(function() {
     }
   });
 
+  // If the cursor leaves the canvas whiteboard, simply stop drawing any more elements (by triggering a 'dragend' event).
   App.canvas.on('mouseleave', function(e) {
     App.canvas.trigger('dragend');
   });
