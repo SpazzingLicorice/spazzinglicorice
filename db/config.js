@@ -1,4 +1,6 @@
 // # MongoDB Database Configuration
+
+// ##### [Back to Table of Contents](./tableofcontents.html)
 var mongoose = require('mongoose');
 
 // Currently configured for deployment. Change to this for development: 

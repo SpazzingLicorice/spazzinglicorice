@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>stubs.js</title>
+  <title>Table of Contents</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -55,28 +55,8 @@
                 </a>
               
                 
-                <a class="source" href="dbTest.html">
-                  dbTest.js
-                </a>
-              
-                
-                <a class="source" href="liveServerSpec.html">
-                  liveServerSpec.js
-                </a>
-              
-                
-                <a class="source" href="serverSpec.html">
-                  serverSpec.js
-                </a>
-              
-                
-                <a class="source" href="stubs.html">
-                  stubs.js
-                </a>
-              
-                
-                <a class="source" href="test.html">
-                  test.js
+                <a class="source" href="tableofcontents.html">
+                  tableofcontents.js
                 </a>
               
             </div>
@@ -86,12 +66,6 @@
     
     <ul class="sections">
         
-          <li id="title">
-              <div class="annotation">
-                  <h1>stubs.js</h1>
-              </div>
-          </li>
-        
         
         
         <li id="section-1">
@@ -100,8 +74,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>// Methods for stubbing HTTP requests and responses
-module.exports = {</p>
+              <h1 id="table-of-contents">Table of Contents</h1>
 
             </div>
             
@@ -114,11 +87,7 @@ module.exports = {</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>  response: function() {
-    this._ended = false;
-    this._responseCode = null;
-    this._headers = null;
-    this._data = null;</p>
+              <h2 id="back-end">Back-End</h2>
 
             </div>
             
@@ -131,11 +100,11 @@ module.exports = {</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <pre><code><span class="hljs-keyword">this</span>.writeHead = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">responseCode, headers</span>) </span>{
-  <span class="hljs-keyword">this</span>._responseCode = responseCode;
-  <span class="hljs-keyword">this</span>._headers = headers;
-}.bind(<span class="hljs-keyword">this</span>);
-</code></pre>
+              <h4 id="-server-js-server-html-"><a href="./server.html">server.js</a></h4>
+<ul>
+<li>Heroku Server file.</li>
+</ul>
+
             </div>
             
         </li>
@@ -147,11 +116,10 @@ module.exports = {</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <pre><code><span class="hljs-keyword">this</span>.end = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-  <span class="hljs-keyword">this</span>._ended = <span class="hljs-literal">true</span>;
-  <span class="hljs-keyword">this</span>._data = data;
-}.bind(<span class="hljs-keyword">this</span>);
-</code></pre><p>  },</p>
+              <h4 id="-sockets-js-sockets-html-"><a href="./sockets.html">sockets.js</a></h4>
+<ul>
+<li>Connection/Request Handler for Socket.io requests.</li>
+</ul>
 
             </div>
             
@@ -164,11 +132,10 @@ module.exports = {</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>  request: function(url, method, postdata) {
-    this.url = url;
-    this.method = method;
-    this._postData = postdata;
-    this.setEncoding = function() { /<em> noop </em>/ };</p>
+              <h4 id="-config-js-config-html-"><a href="./config.html">config.js</a></h4>
+<ul>
+<li>Configuration file for MongoDB database.</li>
+</ul>
 
             </div>
             
@@ -181,11 +148,11 @@ module.exports = {</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <pre><code><span class="hljs-keyword">this</span>.addListener = <span class="hljs-keyword">this</span>.on = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">type, callback</span>) </span>{
-  <span class="hljs-keyword">if</span> (type == <span class="hljs-string">'data'</span>) {
-    callback(<span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-keyword">this</span>._postData));
-  }
-</code></pre>
+              <h4 id="-board-js-board-html-"><a href="./board.html">board.js</a></h4>
+<ul>
+<li>Mongoose model for whiteboards.</li>
+</ul>
+
             </div>
             
         </li>
@@ -197,10 +164,8 @@ module.exports = {</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <pre><code>  <span class="hljs-keyword">if</span> (type == <span class="hljs-string">'end'</span>) {
-    callback();
-  }
-</code></pre>
+              <h2 id="front-end">Front-End</h2>
+
             </div>
             
         </li>
@@ -212,8 +177,11 @@ module.exports = {</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <pre><code>}.bind(<span class="hljs-keyword">this</span>);
-</code></pre><p>  }</p>
+              <h4 id="-app-js-app-html-"><a href="./app.html">app.js</a></h4>
+<ul>
+<li>Global App Object. Defines initialization with
+canvas properties, Socket.io listeners, utility functions and WebRTC video components.</li>
+</ul>
 
             </div>
             
@@ -226,7 +194,26 @@ module.exports = {</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>};</p>
+              <h4 id="-initialize-js-initialize-html-"><a href="./initialize.html">initialize.js</a></h4>
+<ul>
+<li>Initialize App and register canvas mouse event listeners.</li>
+</ul>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h4 id="-whiteboard-js-whiteboard-html-"><a href="./whiteboard.html">whiteboard.js</a></h4>
+<ul>
+<li>Angular services and Controllers for the whiteboard.</li>
+</ul>
 
             </div>
             

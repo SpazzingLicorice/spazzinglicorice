@@ -1,5 +1,7 @@
 // # Main Server
 
+// ##### [Back to Table of Contents](./tableofcontents.html)
+
 // ## Dependencies
 var express = require('express');
 var app = express();
@@ -24,7 +26,7 @@ app.get('/', function(req, res) {
 
 // **Documentation Page**
 app.get('/documentation', function(req, res) {
-  res.sendFile(__dirname + '/docs/server.html');
+  res.sendFile(__dirname + '/docs/tableofcontents.html');
 });
 
 

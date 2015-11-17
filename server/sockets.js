@@ -1,5 +1,7 @@
 // # Socket Connection Handler
 
+// ##### [Back to Table of Contents](./tableofcontents.html)
+
 // Import board model from [board.js](../documentation/board.html)
 var Board = require('../db/board');
 
