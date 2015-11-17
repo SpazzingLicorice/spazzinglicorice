@@ -1,5 +1,6 @@
 html {
   overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -104,7 +105,37 @@ video {
 }
 
 
-button {
+/*button {
   width: 341px;
   height: 50px;
+  background-color: white;
+  border-width: 2px;
+  border-color: white;
+  box-shadow: none;
+}*/
+
+button {
+  background-color:#ffffff;
+  -moz-border-radius:26px;
+  -webkit-border-radius:26px;
+  border-radius:26px;
+  border:2px solid #ededed;
+  display:inline-block;
+  cursor:pointer;
+  /*color:#387ae3;*/
+  font-size:15px;
+  padding:8px 56px;
+  text-decoration:none;
+  font-family: 'Montserrat', sans-serif;
+}
+button:hover {
+  background-color:#ffffff;
+}
+button:active {
+  position:relative;
+  top:1px;
+}
+
+div.buttons {
+  margin-top: 0.4em;
 }
