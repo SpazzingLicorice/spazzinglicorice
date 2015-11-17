@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>whiteboard.js</title>
+  <title>Whiteboard Angular Components</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -66,12 +66,6 @@
     
     <ul class="sections">
         
-          <li id="title">
-              <div class="annotation">
-                  <h1>whiteboard.js</h1>
-              </div>
-          </li>
-        
         
         
         <li id="section-1">
@@ -80,37 +74,106 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <h1 id="whiteboard-angular-components">Whiteboard Angular Components</h1>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre>angular.module(<span class="hljs-string">'whiteboard'</span>, [<span class="hljs-string">'ui.router'</span>])
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h5 id="-back-to-table-of-contents-tableofcontents-html-"><a href="./tableofcontents.html">Back to Table of Contents</a></h5>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Initialize the whiteboard module.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+angular.module(<span class="hljs-string">'whiteboard'</span>, [<span class="hljs-string">'ui.router'</span>])
   .config(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$stateProvider</span>) </span>{
     $stateProvider
       .state(<span class="hljs-string">'eraser'</span>, {
         controller: <span class="hljs-string">'toolbar'</span>
       });
-  })
-  .controller(<span class="hljs-string">'canvas'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$rootScope, $scope, tools</span>) </span>{
-    $rootScope.app = App;
-  })
+  })</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Set App to the root scope. </p>
 
-.controller(<span class="hljs-string">'toolbar'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, $element, tools</span>) </span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  .controller(<span class="hljs-string">'canvas'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$rootScope, $scope, tools</span>) </span>{
+    $rootScope.app = App;
+  })</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Set toolbar for colour palette and eraser. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>.controller(<span class="hljs-string">'toolbar'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, $element, tools</span>) </span>{
   $scope.changePen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">option</span>) </span>{
     tools.changePen(option);
-    <span class="hljs-built_in">console</span>.log($element);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"The user chose the tool"</span>, $element);
     $(<span class="hljs-string">'input'</span>).not($(<span class="hljs-string">'#'</span> + option)).attr(<span class="hljs-string">'checked'</span>, <span class="hljs-literal">false</span>);
   };
-})
+})</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Set changePen method.
+Note that an eraser is simply a white pen, not actually erasing [x,y] tuples from the database. </p>
 
-.service(<span class="hljs-string">'tools'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$rootScope</span>) </span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>.service(<span class="hljs-string">'tools'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$rootScope</span>) </span>{
   <span class="hljs-keyword">var</span> changePen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">option</span>) </span>{
     <span class="hljs-built_in">console</span>.log($rootScope.app.pen);
     <span class="hljs-keyword">if</span> (option === <span class="hljs-string">'eraser'</span>) {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"User is using the eraser"</span>);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"The user is using the eraser."</span>);
       $rootScope.app.pen.lineWidth = <span class="hljs-number">50</span>;
       $rootScope.app.pen.strokeStyle = <span class="hljs-string">'#fff'</span>;
     } <span class="hljs-keyword">else</span> {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"User is using the pen"</span>);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"The user is using the pen."</span>);
       $rootScope.app.pen.lineWidth = <span class="hljs-number">5</span>;
       $rootScope.app.pen.strokeStyle = option;
     }

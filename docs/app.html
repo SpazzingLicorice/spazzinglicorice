@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>app.js</title>
+  <title>App Setup</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -66,12 +66,6 @@
     
     <ul class="sections">
         
-          <li id="title">
-              <div class="annotation">
-                  <h1>app.js</h1>
-              </div>
-          </li>
-        
         
         
         <li id="section-1">
@@ -80,16 +74,9 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>Initialize the App</p>
+              <h1 id="app-setup">App Setup</h1>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-keyword">var</span> App = {};
-
-App.init = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">var</span> ioRoom = <span class="hljs-built_in">window</span>.location.href;
-  App.socket = io(ioRoom);</pre></div></div>
             
         </li>
         
@@ -100,7 +87,7 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>////////// Video Chat ///////////////</p>
+              <h5 id="-back-to-table-of-contents-tableofcontents-html-"><a href="./tableofcontents.html">Back to Table of Contents</a></h5>
 
             </div>
             
@@ -113,11 +100,14 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Create Video chat Object</p>
+              <p>Set up app properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> webrtc = <span class="hljs-keyword">new</span> SimpleWebRTC({</pre></div></div>
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">var</span> App = {};
+
+App.init = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
             
         </li>
         
@@ -128,11 +118,12 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>the id/element dom element that will hold “our” video</p>
+              <p>Connect to sockets.io with unique ioRoom ID - either a new whiteboard or used and saved previously by <a href="../docs/sockets.html">sockets.js</a></p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      localVideoEl: <span class="hljs-string">'localVideo'</span>,</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> ioRoom = <span class="hljs-built_in">window</span>.location.href;
+  App.socket = io(ioRoom);</pre></div></div>
             
         </li>
         
@@ -143,11 +134,9 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>the id/element dom element that will hold remote videos</p>
+              <p><strong>Video Chat Functionality</strong> </p>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>      remoteVideosEl: <span class="hljs-string">'remoteVideos'</span>,</pre></div></div>
             
         </li>
         
@@ -158,14 +147,11 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>immediately ask for camera access</p>
+              <p>Create a video chat Object.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      autoRequestMedia: <span class="hljs-literal">true</span>
-  });
-
-  webrtc.on(<span class="hljs-string">'readyToCall'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> webrtc = <span class="hljs-keyword">new</span> SimpleWebRTC({</pre></div></div>
             
         </li>
         
@@ -176,12 +162,11 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>The room name is the same as our socket connection</p>
+              <p><strong>localVideoEl</strong>: the ID/element DOM element that will hold the current user’s video</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      webrtc.joinRoom(ioRoom);
-  });</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    localVideoEl: <span class="hljs-string">'localVideo'</span>,</pre></div></div>
             
         </li>
         
@@ -192,9 +177,11 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>////////// Whiteboard ///////////////</p>
+              <p><strong>remoteVideosEl</strong>: the ID/element DOM element that will hold remote videos</p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>    remoteVideosEl: <span class="hljs-string">'remoteVideos'</span>,</pre></div></div>
             
         </li>
         
@@ -205,7 +192,53 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>Getting properties of the whiteboard</p>
+              <p><strong>autoRequestMedia</strong>: immediately ask for camera access</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    autoRequestMedia: <span class="hljs-literal">true</span>
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>The room name is the same as our socket connection.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  webrtc.on(<span class="hljs-string">'readyToCall'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    webrtc.joinRoom(ioRoom);
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p><strong>Whiteboard</strong></p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Set properties of the whiteboard.</p>
 
             </div>
             
@@ -217,13 +250,13 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
         </li>
         
         
-        <li id="section-10">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              <p>Properties of the mouse click</p>
+              <p>Set properties of the mouse click.</p>
 
             </div>
             
@@ -237,13 +270,14 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
         </li>
         
         
-        <li id="section-11">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
-              <p>Initalizing pen properties. Add new drawing features here</p>
+              <p>Initialize pen properties.
+To add more new drawing features, i.e. different colours, thickness, add them to the <code>App.pen</code> object.</p>
 
             </div>
             
@@ -252,35 +286,76 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
     strokeStyle: <span class="hljs-string">"black"</span>,
     lineWidth: <span class="hljs-number">5</span>,
     lineCap: <span class="hljs-string">'round'</span>
-  };
-
-  App.isAnotherUserActive = <span class="hljs-literal">false</span>;
-  App.stroke = [];
-  App.prevPixel = [];</pre></div></div>
+  };</pre></div></div>
             
         </li>
         
         
-        <li id="section-12">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
-              <p>////////// Methods ///////////////</p>
+              <p><code>App.isAnotherUserActive</code> is a Boolean that signals whether another user is currently drawing. The current implementation is such that only 1 user can draw at a time, i.e. simultaneous drawing is forbidden. To get rid of this functionality, remove  <code>App.isAnotherUserActive</code> and conditional loops that require it. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  App.isAnotherUserActive = <span class="hljs-literal">false</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p><code>App.stroke</code> is an array of [x,y] coordinates for one drawing element. They are stored here, emitted (<a href="../docs/initialize.html">in initialize.js</a>), and sent to <a href="../docs/sockets.html">sockets.js</a>. Once sent, <code>App.stroke</code> is emptied. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  App.stroke = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p><code>App.prevPixel</code> contains only 1 [x,y] coordinate pair - the coordinates of the previous pixel drawn. This is used in <code>App.socket.on(&#39;drag&#39;...</code> for smooth rendering of drawn elements by other users. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  App.prevPixel = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p><strong>Methods</strong></p>
 
             </div>
             
         </li>
         
         
-        <li id="section-13">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
-              <p>Draws according to coordinates</p>
+              <p>Draw according to coordinates.</p>
 
             </div>
             
@@ -292,111 +367,17 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
         </li>
         
         
-        <li id="section-14">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
-              </div>
-              <p>Initialize before drawing </p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  App.initializeMouseDown = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pen, moveToX, moveToY</span>) </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-15">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
-              </div>
-              <p>Copy over current pen properties (e.g. fillStyle)</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> pen) {
-      App.context[key] = pen[key];
-    }</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-16">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
-              </div>
-              <p>Begin draw</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    App.context.beginPath();
-    App.context.moveTo(moveToX, moveToY);
-  };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-17">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
-              </div>
-              <p>////////// Socket events //////////</p>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-18">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
-              </div>
-              <p>Draws the board upon join</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  App.socket.on(<span class="hljs-string">'join'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">board</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Joining the board."</span>);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-19">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
-              </div>
-              <p>check for null board data</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (board) {
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; board.strokes.length; i++) {</pre></div></div>
-            
-        </li>
-        
-        
         <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
-              <p>check for null stroke data</p>
+              <p>Initialize before drawing: copy pen properties to <code>App.context</code>, beginPath and set the starting coordinates to <code>moveToX</code> and <code>moveToY</code>.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (board.strokes[i]) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  App.initializeMouseDown = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pen, moveToX, moveToY</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -407,13 +388,13 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
-              <p>set pen, then draw path</p>
+              <p>Copy over current pen properties (e.g. fillStyle).</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">var</span> datapath = board.strokes[i].path;
-          <span class="hljs-keyword">var</span> datapen = board.strokes[i].pen;
-          App.initializeMouseDown(datapen, datapath[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], datapath[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> pen) {
+      App.context[key] = pen[key];
+    }</pre></div></div>
             
         </li>
         
@@ -424,18 +405,13 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
-              <p>draw path</p>
+              <p>Begin draw.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; datapath.length; j++) {
-             App.draw(datapath[j][<span class="hljs-number">0</span>], datapath[j][<span class="hljs-number">1</span>]);
-            }
-          App.context.closePath();
-        }
-      }
-    }
-  });</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    App.context.beginPath();
+    App.context.moveTo(moveToX, moveToY);
+  };</pre></div></div>
             
         </li>
         
@@ -446,13 +422,9 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
-              <p>Upon listening to ‘drag’ event, receives data from the server and draws it to the whiteboard</p>
+              <p><strong>Socket events</strong></p>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>  App.socket.on(<span class="hljs-string">'drag'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-    App.isAnotherUserActive = <span class="hljs-literal">true</span>;
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Receiving data from another user:"</span>, data);</pre></div></div>
             
         </li>
         
@@ -463,17 +435,12 @@ App.init = <span class="hljs-function"><span class="hljs-keyword">function</span
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
-              <p>Socket listens and sends 1 pixel at a time, but canvas drawing works with an initial starting point. App.prevPixel is an array of the previous coordinates sent, so drawing is smoothly rendered across different browsers. 
-If the App.prevPixel array is empty (i.e., this is the first pixel of the drawn element), then prevPixel is set as the current mouseclick coordinates. </p>
+              <p>Draw the board upon join.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (App.prevPixel.length === <span class="hljs-number">0</span>) {
-      App.prevPixel = data.coords;
-    }
-
-    App.initializeMouseDown(data.pen, App.prevPixel[<span class="hljs-number">0</span>], App.prevPixel[<span class="hljs-number">1</span>]);
-    App.draw(data.coords[<span class="hljs-number">0</span>], data.coords[<span class="hljs-number">1</span>]);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  App.socket.on(<span class="hljs-string">'join'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">board</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Joining the board."</span>);</pre></div></div>
             
         </li>
         
@@ -483,6 +450,128 @@ If the App.prevPixel array is empty (i.e., this is the first pixel of the drawn 
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>Check for null board data.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (board) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; board.strokes.length; i++) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Check for null stroke data.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (board.strokes[i]) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Set pen and draw path.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">var</span> strokesArray = board.strokes[i].path;
+          <span class="hljs-keyword">var</span> penProperties = board.strokes[i].pen;
+          App.initializeMouseDown(penProperties, strokesArray[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], strokesArray[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Draw the path according to the strokesArray (array of coordinate tuples).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; strokesArray.length; j++) {
+            App.draw(strokesArray[j][<span class="hljs-number">0</span>], strokesArray[j][<span class="hljs-number">1</span>]);
+          }
+          App.context.closePath();
+        }
+      }
+    }
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>If another user is drawing, App.socket will receive a ‘drag’ event. App listens for the drag event and renders the drawing element created by the other user. 
+Note that App prevents the current user from drawing while the other user is still drawing. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  App.socket.on(<span class="hljs-string">'drag'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    App.isAnotherUserActive = <span class="hljs-literal">true</span>;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Receiving data from another user:"</span>, data);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p><code>App.prevPixel</code> is an array of the previous coordinates sent, so drawing is smoothly rendered across different browsers. 
+If the <code>App.prevPixel</code> array is empty (i.e., this is the first pixel of the drawn element), then prevPixel is set as the coordinates of the current mouseclick. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (App.prevPixel.length === <span class="hljs-number">0</span>) {
+      App.prevPixel = data.coords;
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>Initialize beginning coordinates and drawing.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    App.initializeMouseDown(data.pen, App.prevPixel[<span class="hljs-number">0</span>], App.prevPixel[<span class="hljs-number">1</span>]);
+    App.draw(data.coords[<span class="hljs-number">0</span>], data.coords[<span class="hljs-number">1</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p>Set the current coordinates as App.prevPixel, so the next pixel rendered will be smoothly drawn from these coordinate points to the next ones. </p>
 
@@ -495,13 +584,13 @@ If the App.prevPixel array is empty (i.e., this is the first pixel of the drawn 
         </li>
         
         
-        <li id="section-26">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
-              <p>When the user has mouseup (and finished drawing) then App.prevPixel will be emptied.</p>
+              <p>When the user has mouseup (and finished drawing) then <code>App.prevPixel</code> will be emptied.</p>
 
             </div>
             
