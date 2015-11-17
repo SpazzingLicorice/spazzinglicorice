@@ -10,7 +10,7 @@ var newBoard, boardID;
 var db = mongoose.connection;
 var board = db.model('board');
 
-describe("Persistent Boards Server", function() {
+xdescribe("Persistent Boards Server", function() {
 
   beforeEach(function(done) {
     // var db = mongoose.createConnection('mongodb://127.0.0.1');
