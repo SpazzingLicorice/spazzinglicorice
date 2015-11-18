@@ -26,6 +26,7 @@ var connect = function(boardUrl, board, io) {
     });
 
     socket.on('drag', function(coords) {
+      console.log('**********************');
       //Push coordinates into the stroke's drawing path.
       socket.stroke.path.push(coords);
       // This payload will be sent back to all sockets *except the socket
