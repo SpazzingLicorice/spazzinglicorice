@@ -1,6 +1,8 @@
 # Coderboard
 [See it live here!](http://hidden-castle-8290.herokuapp.com)
 
+![coderboard.png](coderboard.png)
+
 ## Table of Contents
 
 1. [Documentation](#Documentation)
