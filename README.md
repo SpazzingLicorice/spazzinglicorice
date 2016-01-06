@@ -53,9 +53,9 @@ grunt docco
 
 ## Team
 
-  - __Product Owner__: Clayton
-  - __Scrum Master__: Stephen
-  - __Development Team Members__: Mitchell, Michelle
+  - __Product Owner__: [Clayton Schneider](https://github.com/claytonschneider)
+  - __Scrum Master__: [Stephen Wu](https://github.com/thedeagler)
+  - __Development Team Members__: [Mitchell Wilcox](https://github.com/j3tman), [Michelle Lee](https://github.com/mi-lee)
 
 
 ## Contributing
