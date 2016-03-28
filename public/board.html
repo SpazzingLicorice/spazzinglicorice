@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html ng-app='whiteboard'>
   <head>
-  <link rel="stylesheet" href="css/bootstrap-button.css">
+    <link rel="stylesheet" href="css/bootstrap-button.css">
     <link rel='stylesheet' href='css/boardstyle.css'>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
 
@@ -12,55 +10,51 @@
   <body>
     <h1>Coderboard.</h1>
 
-    <video id="localVideo"></video>
-    <div id="remoteVideos"></div>
+  <video id="localVideo"></video>
+  <div id="remoteVideos"></div>
 
-    <div class='whiteboard container'>
+  <div class='whiteboard container'>
 
-      <!-- render this in ng-view probably -->
-      <div class='board-frame'>
+    <div class='board-frame'>
 
-        <canvas id='whiteboard' ng-controller='canvas'>
-        </canvas>
+      <canvas id='whiteboard' ng-controller='canvas'>
+      </canvas>
+    </div>
+  </div>
+  <div class='toolbar' ng-controller='toolbar'>
+    <div class='btn-erase' ng-click="changePen('eraser')">
+      <img src="images/pinkeraser.png">
+    </div>
+
+    <div class='pens'>
+      <div class='palette'>
+        <input type="checkbox" value="None" id="black" name="check" checked="checked" ng-click="changePen('black')"/>
+        <label for="black"></label>
+      </div>
+      <div class='palette'>
+        <input type="checkbox" value="None" id="red" name="check" ng-click="changePen('red')"/>
+        <label for="red"></label>
+      </div>
+      <div class='palette'>
+        <input type="checkbox" value="None" id="blue" name="check" ng-click="changePen('blue')"/>
+        <label for="blue"></label>
       </div>
     </div>
-      <div class='toolbar' ng-controller='toolbar'>
-        <div class='btn-erase' ng-click="changePen('eraser')">
-          <img src="images/pinkeraser.png">
-        </div>
+    <button class="pure-button new"><a href="/new">New Board</a></button>
 
-        <div class='pens'>
-          <div class='palette'>
-            <input type="checkbox" value="None" id="black" name="check" checked="checked" ng-click="changePen('black')"/>
-            <label for="black"></label>
-          </div>
-          <div class='palette'>
-            <input type="checkbox" value="None" id="red" name="check" ng-click="changePen('red')"/>
-            <label for="red"></label>
-          </div>
-          <div class='palette'>
-            <input type="checkbox" value="None" id="blue" name="check" ng-click="changePen('blue')"/>
-            <label for="blue"></label>
-          </div>
-        </div>
-        <button class="pure-button new"><a href="/new">New Board</a></button>
-        
-        <!-- <button class='btn-tool btn-undo'>Undo</button> -->
-      </div>
-    
+    <!-- <button class='btn-tool btn-undo'>Undo</button> -->
   </div>
+
+</div>
 </body>
-<!-- <script src="lib/jquery/dist/jquery.min.js"></script> -->
-<!-- <script src='public/lib/jquery-ui/jquery-ui.min.js'></script> -->
-<!-- <script src="lib/angular-route/angular-route.js"></script> -->
-<!-- <script src="lib/angular-dragdrop/src/angular-dragdrop.min.js"></script> -->
-<!-- <script src="https://simplewebrtc.com/latest.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
 <script src="lib/webrtc.js"></script>
-<script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
-<script src="lib/jquery.event.drag-2.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="https://cdn.jsdelivr.net/jquery.event.drag/2.2/jquery.event.drag.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
-<!-- <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script> -->
 <script src="js/app.js"></script>
 <script src='js/whiteboard.js'></script>
 <script src="js/initialize.js"></script>
